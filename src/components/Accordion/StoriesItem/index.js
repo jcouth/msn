@@ -2,8 +2,9 @@ import React from "react";
 import { InfoArea } from "./styles";
 import ProfilePicture from "../../ProfilePicture";
 import { UserArea, UserNameText } from "./styles";
+import { TouchableWithoutFeedback } from "react-native";
 
-const StoriesItem = ({ user, bigger }) => {
+const StoriesItem = ({ user, bigger, onPress }) => {
   const getColor = (status) => {
     let color = ["#fff", "#D8D8D8", "#808080"]; // Offline
     if (status === "Online") color = ["#fff", "#C3EFCB", "#39CA54"];
@@ -13,7 +14,7 @@ const StoriesItem = ({ user, bigger }) => {
   };
 
   return (
-    <>
+    <TouchableWithoutFeedback onPress={onPress}>
       <InfoArea>
         <ProfilePicture
           width="100px"
@@ -28,7 +29,7 @@ const StoriesItem = ({ user, bigger }) => {
           </UserArea>
         )}
       </InfoArea>
-    </>
+    </TouchableWithoutFeedback>
   );
 };
 

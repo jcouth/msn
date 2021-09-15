@@ -5,7 +5,8 @@ import StoriesItem from "../../../components/Accordion/StoriesItem";
 import ProfilePicture from "../../../components/ProfilePicture";
 import {
   ChannelsArea,
-  ChannelsContainerArea,
+  ChannelsContainer,
+  ChannelsContent,
   ChannelsText,
   ChannelsTextArea,
   ChannelsTitle,
@@ -18,21 +19,61 @@ const data_favourites = {
   users: [
     {
       name: "Tyrone Fuller",
+      stories: [
+        {
+          when: "11min",
+          video: require("../../../assets/jacquin.png"),
+        },
+        {
+          when: "7min",
+          video: require("../../../assets/jacquin.png"),
+        },
+      ],
       status: "Online",
       avatar: require("../../../assets/jacquin.png"),
     },
     {
       name: "Thales Franciso fernando",
+      stories: [
+        {
+          when: "11min",
+          video: require("../../../assets/jacquin.png"),
+        },
+        {
+          when: "7min",
+          video: require("../../../assets/jacquin.png"),
+        },
+      ],
       status: "Offline",
       avatar: require("../../../assets/jacquin.png"),
     },
     {
       name: "Bruno",
+      stories: [
+        {
+          when: "11min",
+          video: require("../../../assets/jacquin.png"),
+        },
+        {
+          when: "7min",
+          video: require("../../../assets/jacquin.png"),
+        },
+      ],
       status: "Away",
       avatar: require("../../../assets/jacquin.png"),
     },
     {
       name: "Septter",
+      stories: [
+        {
+          when: "11min",
+          video: require("../../../assets/jacquin.png"),
+        },
+        {
+          when: "7min",
+          video: require("../../../assets/jacquin.png"),
+        },
+      ],
       status: "Busy",
       avatar: require("../../../assets/jacquin.png"),
     },
@@ -45,6 +86,16 @@ const data_family = {
   users: [
     {
       name: "Thanise",
+      stories: [
+        {
+          when: "11min",
+          video: require("../../../assets/jacquin.png"),
+        },
+        {
+          when: "7min",
+          video: require("../../../assets/jacquin.png"),
+        },
+      ],
       status: "Away",
       avatar: require("../../../assets/jacquin.png"),
     },
@@ -57,6 +108,16 @@ const data_friends = {
   users: [
     {
       name: "Erikas",
+      stories: [
+        {
+          when: "11min",
+          video: require("../../../assets/jacquin.png"),
+        },
+        {
+          when: "7min",
+          video: require("../../../assets/jacquin.png"),
+        },
+      ],
       status: "Online",
       avatar: require("../../../assets/jacquin.png"),
     },
@@ -69,47 +130,54 @@ const data_subscriptions = {
   users: [
     {
       name: "Erikas",
+      stories: [
+        {
+          when: "11min",
+          video: require("../../../assets/jacquin.png"),
+        },
+        {
+          when: "7min",
+          video: require("../../../assets/jacquin.png"),
+        },
+      ],
       status: "Offline",
       avatar: require("../../../assets/jacquin.png"),
     },
   ],
 };
 
-const data_channels = [
-  {
-    id: 1,
-    avatar: require("../../../assets/jacquin.png"),
-    title: "He Calls Himself A Merman",
-  },
-  {
-    id: 2,
-    avatar: require("../../../assets/jacquin.png"),
-    title: "COVID-19 Linked Misinformation Can Be Fatal",
-  },
-  {
-    id: 3,
-    avatar: require("../../../assets/jacquin.png"),
-    title: "The Huge Spider's Bite Feels Like Breaking Bones",
-  },
-];
+const data_channels = {
+  length: 3,
+  channels: [
+    {
+      avatar: require("../../../assets/jacquin.png"),
+      title: "He Calls Himself A Merman",
+    },
+    {
+      avatar: require("../../../assets/jacquin.png"),
+      title: "COVID-19 Linked Misinformation Can Be Fatal",
+    },
+    {
+      avatar: require("../../../assets/jacquin.png"),
+      title: "The Huge Spider's Bite Feels Like Breaking Bones",
+    },
+  ],
+};
 
 const TabStories = () => {
-  const _renderItem = ({ item }) => (
-    <>
-      <ChannelsArea>
-        <ProfilePicture
-          width="100%"
-          height="200px"
-          roundness="5px"
-          colors={["#FFFFFF", "#FFFFFF"]}
-          source={require("../../../assets/jacquin.png")}
-        />
-        <ChannelsTextArea>
-          <ChannelsText></ChannelsText>
-        </ChannelsTextArea>
-      </ChannelsArea>
-    </>
-  );
+  const openFriendStory = (user) => {
+    console.log(user);
+    console.log("Abrindo");
+    console.log(`Name: ${user.name}`);
+    console.log(`Avatar: ${user.avatar}`);
+    console.log(`Status: ${user.status}`);
+    user.stories.forEach((story, index) => {
+      console.log(`Story [${index}]`);
+      console.log(`When: ${story.when}`);
+      console.log(`Video: ${story.video}`);
+    });
+  };
+
   return (
     <>
       <Content colors={["#F9F9F9", "#FFFFFF", "#F9F9F9"]}>
@@ -124,7 +192,13 @@ const TabStories = () => {
             >
               <ScrollView horizontal={true}>
                 {data_favourites.users.map((user, index) => (
-                  <StoriesItem key={index} user={user} />
+                  <StoriesItem
+                    key={index}
+                    user={user}
+                    onPress={() => {
+                      openFriendStory(user);
+                    }}
+                  />
                 ))}
               </ScrollView>
             </Accordion>
@@ -164,15 +238,25 @@ const TabStories = () => {
                 ))}
               </ScrollView>
             </Accordion>
-            <ChannelsContainerArea>
+            <ChannelsContainer>
               <ChannelsTitle>Channels</ChannelsTitle>
-              {/* <FlatList
-                data={data_channels}
-                renderItem={_renderItem}
-                keyExtractor={(item) => item.id}
-                num
-              /> */}
-            </ChannelsContainerArea>
+              <ChannelsContent>
+                {data_channels.channels.map((channel, index) => (
+                  <ChannelsArea key={index}>
+                    <ProfilePicture
+                      width="100%"
+                      height="200px"
+                      roundness="5px"
+                      colors={["#FFFFFF", "#FFFFFF"]}
+                      source={require("../../../assets/jacquin.png")}
+                    />
+                    <ChannelsTextArea>
+                      <ChannelsText>{channel.title}</ChannelsText>
+                    </ChannelsTextArea>
+                  </ChannelsArea>
+                ))}
+              </ChannelsContent>
+            </ChannelsContainer>
           </View>
         </ScrollView>
       </Content>
