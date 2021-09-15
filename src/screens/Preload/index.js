@@ -25,6 +25,7 @@ const Preload = () => {
 
     checkToken();
   }, []);
+
   return (
     <Container>
       <StatusBar backgroundColor="#D8DEEF" barStyle="dark-content" />

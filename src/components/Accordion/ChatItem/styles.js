@@ -1,30 +1,5 @@
 import styled from "styled-components";
 
-export const Container = styled.View`
-  width: 100%;
-  margin-top: 10px;
-`;
-
-export const TitleArea = styled.View`
-  flex-direction: row;
-  align-items: center;
-  padding: 5px 0;
-`;
-
-export const TitleText = styled.Text`
-  font-size: 16px;
-  margin-left: 5px;
-  color: #4E609B;
-`;
-
-export const GreenCircle = styled.View`
-  width: 10px;
-  height: 10px;
-  margin-left: 5px;
-  border-radius: 500px;
-  background-color: #39CA54;
-`;
-
 export const InfoArea = styled.View`
   flex-direction: row;
   justify-content: space-between;

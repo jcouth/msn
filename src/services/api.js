@@ -1,11 +1,10 @@
 const BASE = "";
 
 export const validateToken = async ({ token }) => {
-  const delay = (ms) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+  const delay = async (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
   };
-  (async () => {
-    await delay(1000);
-  })();
-  return true;
+  await delay(3000);
+  const isValid = false;
+  return isValid;
 };

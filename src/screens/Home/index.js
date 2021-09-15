@@ -1,64 +1,22 @@
 import React from "react";
 import {
   StatusBar,
-  TouchableOpacity,
-  Text,
-  View,
-  ScrollView,
 } from "react-native";
 import {
   Container,
   Content,
-  HeaderArea,
-  ProfileArea,
-  ProfilePictureStatus,
-  ProfilePicture,
-  InfoArea,
-  TopInfoArea,
-  TopInfoAreaButtons,
-  UserNameText,
-  UserStatusText,
-  BottomInfoArea,
-  UserMessageText,
 } from "./styles";
-import { Ionicons } from "@expo/vector-icons";
+import Header from "../../components/Header";
+import MainTab from "../../stacks/MainTab";
 
 const Home = () => {
   return (
     <Container>
-      <StatusBar backgroundColor="#D8DEEF" barStyle="dark-content" />
+      <StatusBar backgroundColor="#F9F9F9" barStyle="dark-content" />
+      {/* <Content colors={["#F9F9F9", "#FFFFFF", "#F9F9F9"]}> */}
       <Content>
-        <HeaderArea>
-          <ProfileArea colors={["#fff", "#fff", "#39CA54"]}>
-            <ProfilePictureStatus>
-              <ProfilePicture
-                style={{ resizeMode: "contain" }}
-                source={require("../../assets/jacquin.png")}
-              />
-            </ProfilePictureStatus>
-          </ProfileArea>
-          <InfoArea>
-            <TopInfoArea>
-              <View>
-                <UserNameText>Tyrone Fuller</UserNameText>
-                <UserStatusText>(Online)</UserStatusText>
-              </View>
-              <TopInfoAreaButtons>
-                {/* <TouchableOpacity>
-                  <Ionicons name="settings-sharp" size={26} color="#192758" />
-                </TouchableOpacity> */}
-                <TouchableOpacity>
-                  <Ionicons name="settings-sharp" size={26} color="#192758" />
-                </TouchableOpacity>
-              </TopInfoAreaButtons>
-            </TopInfoArea>
-            <BottomInfoArea>
-              <UserMessageText>
-                Share a message or link with your contacts
-              </UserMessageText>
-            </BottomInfoArea>
-          </InfoArea>
-        </HeaderArea>
+        <Header style={{ padding: 25, paddingBottom: 0 }} />
+        <MainTab />
       </Content>
     </Container>
   );

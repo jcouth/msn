@@ -1,4 +1,3 @@
-import { LinearGradient } from "expo-linear-gradient";
 import styled from "styled-components/native";
 
 export const HeaderArea = styled.View`
@@ -6,27 +5,6 @@ export const HeaderArea = styled.View`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-`;
-
-export const ProfileArea = styled(LinearGradient)`
-  width: 100px;
-  height: 100px;
-  padding: 5px;
-  border: 1px solid #192758;
-  border-radius: 10px;
-`;
-
-export const ProfilePictureStatus = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  border: 1px solid #192758;
-  border-radius: 10px;
-`;
-
-export const ProfilePicture = styled.Image`
-  flex: 1;
 `;
 
 export const InfoArea = styled.View`
@@ -49,12 +27,12 @@ export const TopInfoAreaButtons = styled.View`
 
 export const UserNameText = styled.Text`
   font-size: 18px;
-  color: #192758;
+  color: #4E609B;
 `;
 
 export const UserStatusText = styled.Text`
   font-size: 16px;
-  color: #192758;
+  color: #4E609B;
 `;
 
 export const BottomInfoArea = styled.View`
@@ -65,6 +43,6 @@ export const BottomInfoArea = styled.View`
 `;
 
 export const UserMessageText = styled.Text`
-  font-size: 10px;
-  color: #192758;
+  font-size: 11px;
+  color: #929BB3;
 `;

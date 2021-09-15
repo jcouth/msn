@@ -27,11 +27,11 @@ const Header = ({ style }) => {
             <UserStatusText>(Online)</UserStatusText>
           </View>
           <TopInfoAreaButtons>
-            <TouchableOpacity>
-              <Ionicons name="search-sharp" size={24} color="#192758" />
+            <TouchableOpacity style={{ marginRight: 10 }}>
+              <Ionicons name="search-sharp" size={24} color="#4E609B" />
             </TouchableOpacity>
             <TouchableOpacity>
-              <Ionicons name="settings-sharp" size={24} color="#192758" />
+              <Ionicons name="settings-sharp" size={24} color="#4E609B" />
             </TouchableOpacity>
           </TopInfoAreaButtons>
         </TopInfoArea>

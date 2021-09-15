@@ -1,7 +1,5 @@
 import styled from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
-import Input from "../../components/Input";
-import { Controller } from "react-hook-form";
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -9,7 +7,15 @@ export const Container = styled.SafeAreaView`
 
 export const Content = styled(LinearGradient)`
   flex: 1;
-  justify-content: center;
+`;
+
+export const Scrollable = styled.ScrollView`
+  flex: 1;
+`;
+
+export const ScrollContent = styled.View`
+  flex-grow: 1;
+  justify-content: space-between;
   align-items: center;
   padding: 50px 25px;
 `;
@@ -75,16 +81,16 @@ export const FormButton = styled.TouchableOpacity`
       ? props.variant === "primary"
         ? "center"
         : props.variant === "secondary"
-        ? "center"
-        : "flex-end"
+          ? "center"
+          : "flex-end"
       : "flex-end"};
   margin-top: ${(props) =>
     props.variant
       ? props.variant === "primary"
         ? "25px"
         : props.variant === "secondary"
-        ? "50px"
-        : 0
+          ? "50px"
+          : 0
       : 0};
   padding: ${(props) =>
     props.variant ? (props.variant === "primary" ? "15px" : 0) : 0};

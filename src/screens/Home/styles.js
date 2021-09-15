@@ -6,11 +6,10 @@ export const Container = styled.SafeAreaView`
   background-color: #d8deef;
 `;
 
+// export const Content = styled(LinearGradient)`
 export const Content = styled.View`
   flex: 1;
-  justify-content: center;
-  align-items: center;
-  padding: 50px 25px;
+  background-color: #FFFFFF;
 `;
 
 export const HeaderArea = styled.View`

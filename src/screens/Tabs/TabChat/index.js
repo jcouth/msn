@@ -1,8 +1,8 @@
 import React from "react";
-import { ScrollView, StatusBar, Text, View } from "react-native";
-import Accordion from "../../components/Accordion";
-import Header from "../../components/Header";
-import { Container, Content } from "./styles";
+import { ScrollView, View } from "react-native";
+import Accordion from "../../../components/Accordion";
+import ChatItem from "../../../components/Accordion/ChatItem";
+import { Content } from "./styles";
 
 const data_favourites = {
   notOffline: 2,
@@ -13,7 +13,7 @@ const data_favourites = {
       status: "Online",
       message: "Hello :D",
       lastMessage: "yesterday",
-      avatar: require("../../assets/jacquin.png"),
+      avatar: require("../../../assets/jacquin.png"),
       newMessages: 1,
     },
     {
@@ -21,7 +21,7 @@ const data_favourites = {
       status: "Online",
       message: "",
       lastMessage: "13:11",
-      avatar: require("../../assets/jacquin.png"),
+      avatar: require("../../../assets/jacquin.png"),
       newMessages: 2,
     },
   ],
@@ -36,7 +36,7 @@ const data_family = {
       status: "Away",
       message: "[a.fasdf/]",
       lastMessage: "12:43",
-      avatar: require("../../assets/jacquin.png"),
+      avatar: require("../../../assets/jacquin.png"),
       newMessages: 30,
     },
     {
@@ -44,7 +44,7 @@ const data_family = {
       status: "Busy",
       message: "",
       lastMessage: "12:04",
-      avatar: require("../../assets/jacquin.png"),
+      avatar: require("../../../assets/jacquin.png"),
       newMessages: 0,
     },
     {
@@ -52,7 +52,7 @@ const data_family = {
       status: "Offline",
       message: "...",
       lastMessage: "10:48",
-      avatar: require("../../assets/jacquin.png"),
+      avatar: require("../../../assets/jacquin.png"),
       newMessages: 2,
     },
     {
@@ -60,7 +60,7 @@ const data_family = {
       status: "Offline",
       message: "...",
       lastMessage: "03/08/2021",
-      avatar: require("../../assets/jacquin.png"),
+      avatar: require("../../../assets/jacquin.png"),
       newMessages: 0,
     },
   ],
@@ -75,7 +75,7 @@ const data_friends = {
       status: "Online",
       message: "",
       lastMessage: "13:00",
-      avatar: require("../../assets/jacquin.png"),
+      avatar: require("../../../assets/jacquin.png"),
       newMessages: 0,
     },
     {
@@ -83,7 +83,7 @@ const data_friends = {
       status: "Busy",
       message: "",
       lastMessage: "12:04",
-      avatar: require("../../assets/jacquin.png"),
+      avatar: require("../../../assets/jacquin.png"),
       newMessages: 0,
     },
     {
@@ -91,7 +91,7 @@ const data_friends = {
       status: "Away",
       message: "...",
       lastMessage: "10:48",
-      avatar: require("../../assets/jacquin.png"),
+      avatar: require("../../../assets/jacquin.png"),
       newMessages: 1,
     },
     {
@@ -99,7 +99,7 @@ const data_friends = {
       status: "Offline",
       message: "...",
       lastMessage: "yesterday",
-      avatar: require("../../assets/jacquin.png"),
+      avatar: require("../../../assets/jacquin.png"),
       newMessages: 0,
     },
     {
@@ -107,7 +107,7 @@ const data_friends = {
       status: "Offline",
       message: "...",
       lastMessage: "02/09/2021",
-      avatar: require("../../assets/jacquin.png"),
+      avatar: require("../../../assets/jacquin.png"),
       newMessages: 0,
     },
     {
@@ -115,7 +115,7 @@ const data_friends = {
       status: "Offline",
       message: ":p",
       lastMessage: "03/08/2021",
-      avatar: require("../../assets/jacquin.png"),
+      avatar: require("../../../assets/jacquin.png"),
       newMessages: 0,
     },
     {
@@ -123,28 +123,54 @@ const data_friends = {
       status: "Offline",
       message: ":|",
       lastMessage: "01/08/2021",
-      avatar: require("../../assets/jacquin.png"),
+      avatar: require("../../../assets/jacquin.png"),
       newMessages: 0,
     },
   ],
 };
 
-const Chat = () => {
+const TabChat = () => {
   return (
-    <Container>
-      <StatusBar backgroundColor="#D8DEEF" barStyle="dark-content" />
-      <Content colors={["#D8DEEF", "#F9F9F9", "#FFFFFF", "#F9F9F9", "#D8DEEF"]}>
-        <Header style={{ padding: 25, paddingBottom: 0 }} />
+    <>
+      <Content colors={["#F9F9F9", "#FFFFFF", "#F9F9F9"]}>
         <ScrollView style={{ flex: 1 }}>
           <View style={{ flex: 1, padding: 25, paddingTop: 0 }}>
-            <Accordion title="Favourites" star green data={data_favourites} />
-            <Accordion title="Family" data={data_family} />
-            <Accordion title="Friends" data={data_friends} />
+            <Accordion
+              title="Favourites"
+              star
+              expanded
+              notOffline={data_favourites.notOffline}
+              total={data_favourites.length}
+            >
+              {data_favourites.users.map((user, index) => (
+                <ChatItem key={index} user={user} />
+              ))}
+            </Accordion>
+            <Accordion
+              title="Family"
+              expanded
+              notOffline={data_family.notOffline}
+              total={data_family.length}
+            >
+              {data_family.users.map((user, index) => (
+                <ChatItem key={index} user={user} />
+              ))}
+            </Accordion>
+            <Accordion
+              title="Friends"
+              expanded
+              notOffline={data_friends.notOffline}
+              total={data_friends.length}
+            >
+              {data_friends.users.map((user, index) => (
+                <ChatItem key={index} user={user} />
+              ))}
+            </Accordion>
           </View>
         </ScrollView>
       </Content>
-    </Container>
+    </>
   );
 };
 
-export default Chat;
+export default TabChat;
