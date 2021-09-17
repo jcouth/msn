@@ -12,6 +12,7 @@ const Input = ({
   borderColor,
   borderRadius,
   padding,
+  eyeColor,
   ...rest
 }) => {
   const [secureEntry, setSecureEntry] = useState(securyTextEntry);
@@ -35,9 +36,17 @@ const Input = ({
       {!rightIcon && securyTextEntry && (
         <RevealPassword onPress={() => setSecureEntry(!secureEntry)}>
           {secureEntry ? (
-            <Ionicons name="eye" size={24} color="#192758" />
+            <Ionicons
+              name="eye"
+              size={24}
+              color={eyeColor ? eyeColor : "#192758"}
+            />
           ) : (
-            <Ionicons name="eye-off" size={24} color="#192758" />
+            <Ionicons
+              name="eye-off"
+              size={24}
+              color={eyeColor ? eyeColor : "#192758"}
+            />
           )}
         </RevealPassword>
       )}

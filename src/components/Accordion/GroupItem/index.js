@@ -1,16 +1,15 @@
 import React from "react";
+import ProfilePicture from "../../ProfilePicture";
 import {
   InfoArea,
   UserArea,
   TopInfoArea,
   UserMessageText,
   UserNameText,
-  UserStatusText,
   LastMessageArea,
   LastMessageText,
   LastNumberMessages,
 } from "./styles";
-import ProfilePicture from "../../ProfilePicture";
 
 const GroupItem = ({ user }) => {
   const getColor = (status) => {

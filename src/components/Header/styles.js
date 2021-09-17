@@ -27,12 +27,12 @@ export const TopInfoAreaButtons = styled.View`
 
 export const UserNameText = styled.Text`
   font-size: 18px;
-  color: #4E609B;
+  color: #4e609b;
 `;
 
 export const UserStatusText = styled.Text`
   font-size: 16px;
-  color: #4E609B;
+  color: #4e609b;
 `;
 
 export const BottomInfoArea = styled.View`
@@ -44,5 +44,5 @@ export const BottomInfoArea = styled.View`
 
 export const UserMessageText = styled.Text`
   font-size: 11px;
-  color: #929BB3;
+  color: #929bb3;
 `;

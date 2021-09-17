@@ -1,5 +1,7 @@
 import React, { useRef, useState } from "react";
-import { StatusBar, Text, TouchableOpacity, View } from "react-native";
+import { StatusBar, TouchableOpacity } from "react-native";
+import ProfilePicture from "../../components/ProfilePicture";
+import Input from "../../components/Input";
 import {
   CloseButton,
   Container,
@@ -17,9 +19,7 @@ import {
   StyledVideo,
   VideoArea,
 } from "./styles";
-import ProfilePicture from "../../components/ProfilePicture";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-import Input from "../../components/Input";
 
 const Story = ({ navigation: { goBack }, route: { params } }) => {
   const { user } = params;
@@ -47,7 +47,6 @@ const Story = ({ navigation: { goBack }, route: { params } }) => {
         video: user.stories[position].video,
       });
     } else {
-      // finished
       goBack();
     }
   };
@@ -64,16 +63,14 @@ const Story = ({ navigation: { goBack }, route: { params } }) => {
           <StyledVideo
             ref={video}
             source={{
-              // uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
               uri: activeStory.video,
             }}
-            useNativeControls
+            // useNativeControls
             resizeMode="contain"
             shouldPlay={true}
             onPlaybackStatusUpdate={(e) => {
               if (e.didJustFinish) {
                 goToNextVideo();
-                // setStatusAsync({ positionMillis: 0, shouldPlay: true });
               }
             }}
           />

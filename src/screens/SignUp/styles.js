@@ -81,16 +81,16 @@ export const FormButton = styled.TouchableOpacity`
       ? props.variant === "primary"
         ? "center"
         : props.variant === "secondary"
-          ? "center"
-          : "flex-end"
+        ? "center"
+        : "flex-end"
       : "flex-end"};
   margin-top: ${(props) =>
     props.variant
       ? props.variant === "primary"
         ? "25px"
         : props.variant === "secondary"
-          ? "50px"
-          : 0
+        ? "50px"
+        : 0
       : 0};
   padding: ${(props) =>
     props.variant ? (props.variant === "primary" ? "15px" : 0) : 0};
@@ -118,33 +118,4 @@ export const FormButtonText = styled.Text`
         ? "#ffffff"
         : "#192758"
       : "#192758"};
-`;
-
-/* */
-export const ConfigButton = styled.TouchableOpacity``;
-
-export const UserArea = styled.View`
-  align-items: center;
-  margin: 50px 0 30px;
-`;
-
-export const LinkText = styled.Text`
-  font-size: 16px;
-  text-decoration: underline;
-  color: #192758;
-`;
-
-export const ButtonOpacity = styled.TouchableOpacity`
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 30px 0 50px;
-  padding: 16px;
-  border-radius: 10px;
-  background-color: #192758;
-`;
-
-export const ButtonText = styled.Text`
-  font-size: 18px;
-  color: #ffffff;
 `;

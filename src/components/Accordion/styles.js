@@ -14,7 +14,7 @@ export const TitleArea = styled.View`
 export const TitleText = styled.Text`
   font-size: 16px;
   margin-left: 5px;
-  color: #4E609B;
+  color: #4e609b;
 `;
 
 export const GreenCircle = styled.View`
@@ -22,7 +22,7 @@ export const GreenCircle = styled.View`
   height: 10px;
   margin-left: 5px;
   border-radius: 500px;
-  background-color: #39CA54;
+  background-color: #39ca54;
 `;
 
 export const InfoArea = styled.View`
@@ -46,18 +46,18 @@ export const TopInfoArea = styled.View`
 
 export const UserNameText = styled.Text`
   font-size: 16px;
-  color: #4E609B;
+  color: #4e609b;
 `;
 
 export const UserStatusText = styled.Text`
   font-size: 12px;
-  color: #929BB3;
+  color: #929bb3;
 `;
 
 export const UserMessageText = styled.Text`
   flex-grow: 1;
   font-size: 12px;
-  color: #4E609B;
+  color: #4e609b;
 `;
 
 export const LastMessageArea = styled.View`
@@ -66,7 +66,7 @@ export const LastMessageArea = styled.View`
 
 export const LastMessageText = styled.Text`
   font-size: 12px;
-  color: ${props => props.changeColor ? "#39CA54" : "#929BB3"};
+  color: ${(props) => (props.changeColor ? "#39CA54" : "#929BB3")};
 `;
 
 export const LastNumberMessages = styled.Text`
@@ -74,6 +74,6 @@ export const LastNumberMessages = styled.Text`
   padding: 0 5px;
   border-radius: 500px;
   text-align: center;
-  background-color: #39CA54;
+  background-color: #39ca54;
   color: white;
 `;

@@ -23,7 +23,8 @@ const data_favourites = {
       stories: [
         {
           when: "11min",
-          video: "https://cdn.dribbble.com/users/5236389/screenshots/13497348/media/6cccc746db12f8a37415f014847496b7.mp4",
+          video:
+            "https://cdn.dribbble.com/users/5236389/screenshots/13497348/media/6cccc746db12f8a37415f014847496b7.mp4",
         },
         {
           when: "7min",
@@ -31,7 +32,8 @@ const data_favourites = {
         },
         {
           when: "2min",
-          video: "https://cdn.dribbble.com/users/5236389/screenshots/13497348/media/6cccc746db12f8a37415f014847496b7.mp4",
+          video:
+            "https://cdn.dribbble.com/users/5236389/screenshots/13497348/media/6cccc746db12f8a37415f014847496b7.mp4",
         },
       ],
       status: "Online",
@@ -57,7 +59,8 @@ const data_favourites = {
         },
         {
           when: "7min",
-          video: "https://cdn.dribbble.com/users/5236389/screenshots/13497348/media/6cccc746db12f8a37415f014847496b7.mp4",
+          video:
+            "https://cdn.dribbble.com/users/5236389/screenshots/13497348/media/6cccc746db12f8a37415f014847496b7.mp4",
         },
       ],
       status: "Away",
@@ -68,7 +71,8 @@ const data_favourites = {
       stories: [
         {
           when: "11min",
-          video: "https://cdn.dribbble.com/users/5236389/screenshots/13497348/media/6cccc746db12f8a37415f014847496b7.mp4",
+          video:
+            "https://cdn.dribbble.com/users/5236389/screenshots/13497348/media/6cccc746db12f8a37415f014847496b7.mp4",
         },
         {
           when: "7min",

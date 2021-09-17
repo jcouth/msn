@@ -112,31 +112,12 @@ export const FormButtonText = styled.Text`
       : "#192758"};
 `;
 
-/* */
-export const ConfigButton = styled.TouchableOpacity``;
-
-export const UserArea = styled.View`
-  align-items: center;
-  margin: 50px 0 30px;
+export const InputError = styled.View`
+  /* flex-grow: 1; */
+  /* margin: 5px 0 20px; */
 `;
 
-export const LinkText = styled.Text`
+export const InputErrorText = styled.Text`
   font-size: 16px;
-  text-decoration: underline;
-  color: #192758;
-`;
-
-export const ButtonOpacity = styled.TouchableOpacity`
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 30px 0 50px;
-  padding: 16px;
-  border-radius: 10px;
-  background-color: #192758;
-`;
-
-export const ButtonText = styled.Text`
-  font-size: 18px;
-  color: #ffffff;
+  color: #ff0000;
 `;

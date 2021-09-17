@@ -1,8 +1,7 @@
 import React from "react";
-import { InfoArea } from "./styles";
-import ProfilePicture from "../../ProfilePicture";
-import { UserArea, UserNameText } from "./styles";
 import { TouchableWithoutFeedback } from "react-native";
+import ProfilePicture from "../../ProfilePicture";
+import { InfoArea, UserArea, UserNameText } from "./styles";
 
 const StoriesItem = ({ user, bigger, onPress }) => {
   const getColor = (status) => {

@@ -1,5 +1,6 @@
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
+import ProfilePicture from "../ProfilePicture";
 import {
   HeaderArea,
   InfoArea,
@@ -11,7 +12,6 @@ import {
   UserMessageText,
 } from "./styles";
 import { Ionicons } from "@expo/vector-icons";
-import ProfilePicture from "../ProfilePicture";
 
 const Header = ({ style }) => {
   return (

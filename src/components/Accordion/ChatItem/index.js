@@ -1,4 +1,5 @@
 import React from "react";
+import ProfilePicture from "../../ProfilePicture";
 import {
   InfoArea,
   UserArea,
@@ -10,7 +11,6 @@ import {
   LastMessageText,
   LastNumberMessages,
 } from "./styles";
-import ProfilePicture from "../../ProfilePicture";
 
 const ChatItem = ({ user }) => {
   const getColor = (status) => {

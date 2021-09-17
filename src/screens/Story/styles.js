@@ -17,7 +17,7 @@ export const Areas = styled.View`
   padding: 50px 25px;
 `;
 
-export const VideoArea = styled.TouchableOpacity`
+export const VideoArea = styled.TouchableWithoutFeedback`
   flex: 1;
   width: 100%;
   height: 100%;
@@ -84,7 +84,6 @@ export const BottomArea = styled.View`
 
 export const IconArea = styled.TouchableOpacity`
   margin-right: 10px;
-  /* background-color: red; */
 `;
 
 export const InputArea = styled.View`

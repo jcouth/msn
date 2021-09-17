@@ -5,8 +5,7 @@ import {
   CollapseBody,
 } from "accordion-collapse-react-native";
 import { Container, TitleArea, TitleText, GreenCircle } from "./styles";
-import { Ionicons } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 const Accordion = ({
   children,
@@ -41,36 +40,7 @@ const Accordion = ({
             {green && <GreenCircle />}
           </TitleArea>
         </CollapseHeader>
-        <CollapseBody>
-          {children}
-          {/* {data.users.map((user, index) => (
-            <InfoArea key={index}>
-              <ProfilePicture
-                width="50px"
-                height="50px"
-                borderSize="2.5px"
-                roundness="5px"
-                colors={getColor(user.status)}
-                source={user.avatar}
-              />
-              <UserArea>
-                <TopInfoArea>
-                  <UserNameText>{user.name}</UserNameText>
-                  <UserStatusText> ({user.status})</UserStatusText>
-                </TopInfoArea>
-                <UserMessageText>{user.message}</UserMessageText>
-              </UserArea>
-              <LastMessageArea>
-                <LastMessageText changeColor={0 < user.newMessages ? 1 : 0}>
-                  {user.lastMessage}
-                </LastMessageText>
-                {0 < user.newMessages && (
-                  <LastNumberMessages>{user.newMessages}</LastNumberMessages>
-                )}
-              </LastMessageArea>
-            </InfoArea>
-          ))} */}
-        </CollapseBody>
+        <CollapseBody>{children}</CollapseBody>
       </Collapse>
     </Container>
   );

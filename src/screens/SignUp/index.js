@@ -1,12 +1,8 @@
 import React from "react";
-import {
-  StatusBar,
-  TouchableOpacity,
-  Text,
-  View,
-} from "react-native";
+import { StatusBar, TouchableOpacity, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Controller, useForm } from "react-hook-form";
+import Input from "../../components/Input";
 import {
   Container,
   Content,
@@ -19,10 +15,11 @@ import {
   FormArea,
   InputArea,
   FormButton,
-  FormButtonText, Scrollable, ScrollContent
+  FormButtonText,
+  Scrollable,
+  ScrollContent,
 } from "./styles";
 import { Feather, FontAwesome, Ionicons } from "@expo/vector-icons";
-import Input from "../../components/Input";
 
 const SignUp = () => {
   const navigation = useNavigation();
@@ -33,14 +30,6 @@ const SignUp = () => {
   } = useForm();
 
   const onSubmit = (data) => console.log(data);
-
-  const handleHaveAnAccount = () => {
-    // navigation.reset({
-    //   routes: [{ name: "SignUp" }],
-    // });
-
-    navigation.navigate("SignIn");
-  };
 
   return (
     <Container>
@@ -163,7 +152,15 @@ const SignUp = () => {
               <FormButton variant="primary" onPress={handleSubmit(onSubmit)}>
                 <FormButtonText variant="primary">Sign Up</FormButtonText>
               </FormButton>
-              <FormButton variant="secondary" onPress={handleHaveAnAccount}>
+              <FormButton
+                variant="secondary"
+                onPress={() => {
+                  // navigation.reset({
+                  //   routes: [{ name: "SignUp" }],
+                  // });
+                  navigation.navigate("SignIn");
+                }}
+              >
                 <FormButtonText>Have an account? Sign In</FormButtonText>
               </FormButton>
             </FormArea>
