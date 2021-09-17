@@ -4,10 +4,15 @@ export const InputArea = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  padding: 10px;
-  border-radius: 12.5px;
-  background-color: #fff;
+  width: ${(props) => (props.width ? props.width : "100%")};
+  padding: ${(props) => (props.padding ? props.padding : "10px")};
+  /* padding: 5px 10px; */
+  border: ${(props) => (props.borderSize ? props.borderSize : 0)} solid
+    ${(props) => (props.borderColor ? props.borderColor : "transparent")};
+  border-radius: ${(props) =>
+    props.borderRadius ? props.borderRadius : "12.5px"};
+  background-color: ${(props) =>
+    props.backgroundColor ? props.backgroundColor : "#ffffff"};
 `;
 
 export const StyledInput = styled.TextInput`

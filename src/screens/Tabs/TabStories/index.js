@@ -1,5 +1,6 @@
 import React from "react";
-import { FlatList, ScrollView, Text, View } from "react-native";
+import { ScrollView, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import Accordion from "../../../components/Accordion";
 import StoriesItem from "../../../components/Accordion/StoriesItem";
 import ProfilePicture from "../../../components/ProfilePicture";
@@ -22,11 +23,15 @@ const data_favourites = {
       stories: [
         {
           when: "11min",
-          video: require("../../../assets/jacquin.png"),
+          video: "https://cdn.dribbble.com/users/5236389/screenshots/13497348/media/6cccc746db12f8a37415f014847496b7.mp4",
         },
         {
           when: "7min",
-          video: require("../../../assets/jacquin.png"),
+          video: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+        },
+        {
+          when: "2min",
+          video: "https://cdn.dribbble.com/users/5236389/screenshots/13497348/media/6cccc746db12f8a37415f014847496b7.mp4",
         },
       ],
       status: "Online",
@@ -37,11 +42,7 @@ const data_favourites = {
       stories: [
         {
           when: "11min",
-          video: require("../../../assets/jacquin.png"),
-        },
-        {
-          when: "7min",
-          video: require("../../../assets/jacquin.png"),
+          video: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
         },
       ],
       status: "Offline",
@@ -52,11 +53,11 @@ const data_favourites = {
       stories: [
         {
           when: "11min",
-          video: require("../../../assets/jacquin.png"),
+          video: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
         },
         {
           when: "7min",
-          video: require("../../../assets/jacquin.png"),
+          video: "https://cdn.dribbble.com/users/5236389/screenshots/13497348/media/6cccc746db12f8a37415f014847496b7.mp4",
         },
       ],
       status: "Away",
@@ -67,11 +68,11 @@ const data_favourites = {
       stories: [
         {
           when: "11min",
-          video: require("../../../assets/jacquin.png"),
+          video: "https://cdn.dribbble.com/users/5236389/screenshots/13497348/media/6cccc746db12f8a37415f014847496b7.mp4",
         },
         {
           when: "7min",
-          video: require("../../../assets/jacquin.png"),
+          video: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
         },
       ],
       status: "Busy",
@@ -89,11 +90,11 @@ const data_family = {
       stories: [
         {
           when: "11min",
-          video: require("../../../assets/jacquin.png"),
+          video: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
         },
         {
           when: "7min",
-          video: require("../../../assets/jacquin.png"),
+          video: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
         },
       ],
       status: "Away",
@@ -111,11 +112,11 @@ const data_friends = {
       stories: [
         {
           when: "11min",
-          video: require("../../../assets/jacquin.png"),
+          video: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
         },
         {
           when: "7min",
-          video: require("../../../assets/jacquin.png"),
+          video: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
         },
       ],
       status: "Online",
@@ -130,14 +131,15 @@ const data_subscriptions = {
   users: [
     {
       name: "Erikas",
+      title: "Big Buck Bunny",
       stories: [
         {
           when: "11min",
-          video: require("../../../assets/jacquin.png"),
+          video: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
         },
         {
           when: "7min",
-          video: require("../../../assets/jacquin.png"),
+          video: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
         },
       ],
       status: "Offline",
@@ -165,18 +167,7 @@ const data_channels = {
 };
 
 const TabStories = () => {
-  const openFriendStory = (user) => {
-    console.log(user);
-    console.log("Abrindo");
-    console.log(`Name: ${user.name}`);
-    console.log(`Avatar: ${user.avatar}`);
-    console.log(`Status: ${user.status}`);
-    user.stories.forEach((story, index) => {
-      console.log(`Story [${index}]`);
-      console.log(`When: ${story.when}`);
-      console.log(`Video: ${story.video}`);
-    });
-  };
+  const navigation = useNavigation();
 
   return (
     <>
@@ -196,7 +187,7 @@ const TabStories = () => {
                     key={index}
                     user={user}
                     onPress={() => {
-                      openFriendStory(user);
+                      navigation.navigate("Story", { user: user });
                     }}
                   />
                 ))}
@@ -210,7 +201,13 @@ const TabStories = () => {
             >
               <ScrollView horizontal={true}>
                 {data_family.users.map((user, index) => (
-                  <StoriesItem key={index} user={user} />
+                  <StoriesItem
+                    key={index}
+                    user={user}
+                    onPress={() => {
+                      navigation.navigate("Story", { user: user });
+                    }}
+                  />
                 ))}
               </ScrollView>
             </Accordion>
@@ -222,7 +219,13 @@ const TabStories = () => {
             >
               <ScrollView horizontal={true}>
                 {data_friends.users.map((user, index) => (
-                  <StoriesItem key={index} user={user} />
+                  <StoriesItem
+                    key={index}
+                    user={user}
+                    onPress={() => {
+                      navigation.navigate("Story", { user: user });
+                    }}
+                  />
                 ))}
               </ScrollView>
             </Accordion>
@@ -234,7 +237,14 @@ const TabStories = () => {
             >
               <ScrollView horizontal={true}>
                 {data_subscriptions.users.map((user, index) => (
-                  <StoriesItem key={index} user={user} bigger />
+                  <StoriesItem
+                    key={index}
+                    user={user}
+                    bigger
+                    onPress={() => {
+                      navigation.navigate("Story", { user: user });
+                    }}
+                  />
                 ))}
               </ScrollView>
             </Accordion>

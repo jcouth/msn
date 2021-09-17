@@ -9,9 +9,13 @@ export const InfoArea = styled.View`
 
 export const UserArea = styled.View`
   align-items: center;
+  position: ${(props) => (props.bigger ? "absolute" : "relative")};
+  bottom: 0;
+  left: 0;
+  padding: ${(props) => props.bigger && "15px 20px"};
 `;
 
 export const UserNameText = styled.Text`
   font-size: 16px;
-  color: #4e609b;
+  color: ${(props) => (props.bigger ? "#ffffff" : "#4e609b")};
 `;

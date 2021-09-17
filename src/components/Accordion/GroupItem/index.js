@@ -35,7 +35,6 @@ const GroupItem = ({ user }) => {
         <UserArea>
           <TopInfoArea>
             <UserNameText>{user.name}</UserNameText>
-            <UserStatusText> ({user.status})</UserStatusText>
           </TopInfoArea>
           <UserMessageText>{user.message}</UserMessageText>
         </UserArea>

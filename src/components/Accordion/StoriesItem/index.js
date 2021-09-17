@@ -23,11 +23,11 @@ const StoriesItem = ({ user, bigger, onPress }) => {
           colors={bigger ? ["#FFFFFF", "#FFFFFF"] : getColor(user.status)}
           source={user.avatar}
         />
-        {!bigger && (
-          <UserArea>
-            <UserNameText numberOfLines={1}>{user.name}</UserNameText>
-          </UserArea>
-        )}
+        <UserArea bigger={bigger ? 1 : 0}>
+          <UserNameText bigger={bigger ? 1 : 0} numberOfLines={bigger ? 3 : 1}>
+            {bigger ? user.title : user.name}
+          </UserNameText>
+        </UserArea>
       </InfoArea>
     </TouchableWithoutFeedback>
   );

@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
+import { Video } from "expo-av";
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -7,136 +8,85 @@ export const Container = styled.SafeAreaView`
 
 export const Content = styled(LinearGradient)`
   flex: 1;
+  position: relative;
+`;
+
+export const Areas = styled.View`
+  flex: 1;
   justify-content: space-between;
-  align-items: center;
   padding: 50px 25px;
 `;
 
-export const HeaderArea = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: baseline;
+export const VideoArea = styled.TouchableOpacity`
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+export const StyledVideo = styled(Video)`
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+export const TopArea = styled.View`
   width: 100%;
 `;
 
-export const TitleArea = styled.View`
+export const StoriesArea = styled.View`
+  flex-grow: 1;
+  flex-direction: row;
+  margin-bottom: 10px;
+`;
+
+export const StoriesBar = styled.View`
+  flex: 1;
+  height: 3px;
+  margin: 0 5px;
+  background-color: ${(props) =>
+    props.opened ? "#ff0000" : props.active ? "orange" : "#ffffff"};
+`;
+
+export const UserArea = styled.View`
   flex-direction: row;
 `;
 
-export const TextArea = styled.View`
+export const UserInfo = styled.View`
+  flex-grow: 1;
+  margin-left: 5px;
+`;
+
+export const UserText = styled.Text`
+  font-size: ${(props) => (props.primary ? "18px" : "14px")};
+  font-weight: ${(props) => (props.primary ? "bold" : "normal")};
+  text-shadow: 1px 1px 10px black;
+  color: #ffffff;
+`;
+
+export const CloseButton = styled.TouchableOpacity`
+  justify-content: center;
+  align-items: flex-end;
+  align-content: flex-end;
+  margin-left: 5px;
+`;
+
+export const BottomArea = styled.View`
   flex-direction: row;
-  align-items: baseline;
-`;
-
-export const TitleText = styled.Text`
-  font-weight: bold;
-  font-size: ${(props) =>
-    props.variant ? (props.variant === "primary" ? "26px" : "24px") : "24px"};
-  font-style: ${(props) =>
-    props.variant
-      ? props.variant === "primary"
-        ? "italic"
-        : "normal"
-      : "normal"};
-  color: ${(props) =>
-    props.variant
-      ? props.variant === "primary"
-        ? "#192758"
-        : "#929bb3"
-      : "#929bb3"};
-`;
-
-export const LogoIcon = styled.Image`
-  width: 20px;
-  height: 20px;
-`;
-
-export const UserIcon = styled.Image`
+  align-items: center;
   width: 100%;
-  height: 150px;
-  margin: 25px 0;
 `;
 
-export const FormArea = styled.View`
-  padding: 10px;
+export const IconArea = styled.TouchableOpacity`
+  margin-right: 10px;
+  /* background-color: red; */
 `;
 
 export const InputArea = styled.View`
-  width: 100%;
-  margin: 10px 0;
-`;
-
-export const FormButton = styled.TouchableOpacity`
-  flex-direction: row;
-  justify-content: ${(props) =>
-    props.variant
-      ? props.variant === "primary"
-        ? "center"
-        : props.variant === "secondary"
-        ? "center"
-        : "flex-end"
-      : "flex-end"};
-  margin-top: ${(props) =>
-    props.variant
-      ? props.variant === "primary"
-        ? "25px"
-        : props.variant === "secondary"
-        ? "50px"
-        : 0
-      : 0};
-  padding: ${(props) =>
-    props.variant ? (props.variant === "primary" ? "15px" : 0) : 0};
-  border-radius: 10px;
-  background-color: ${(props) =>
-    props.variant
-      ? props.variant === "primary"
-        ? "#192758"
-        : "transparent"
-      : "transparent"};
-`;
-
-export const FormButtonText = styled.Text`
-  font-size: ${(props) =>
-    props.variant ? (props.variant === "primary" ? "16px" : "14px") : "14px"};
-  text-decoration: ${(props) =>
-    props.variant
-      ? props.variant === "primary"
-        ? "none"
-        : "underline"
-      : "underline"};
-  color: ${(props) =>
-    props.variant
-      ? props.variant === "primary"
-        ? "#ffffff"
-        : "#192758"
-      : "#192758"};
-`;
-
-/* */
-export const ConfigButton = styled.TouchableOpacity``;
-
-export const UserArea = styled.View`
-  align-items: center;
-  margin: 50px 0 30px;
-`;
-
-export const LinkText = styled.Text`
-  font-size: 16px;
-  text-decoration: underline;
-  color: #192758;
-`;
-
-export const ButtonOpacity = styled.TouchableOpacity`
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 30px 0 50px;
-  padding: 16px;
-  border-radius: 10px;
-  background-color: #192758;
-`;
-
-export const ButtonText = styled.Text`
-  font-size: 18px;
-  color: #ffffff;
+  flex: 1;
 `;

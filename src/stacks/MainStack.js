@@ -5,13 +5,14 @@ import SignIn from "../screens/SignIn";
 import SignUp from "../screens/SignUp";
 import Home from "../screens/Home";
 import MainTab from "./MainTab";
+import Story from "../screens/Story";
 
 const Stack = createStackNavigator();
 
 const MainStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="MainTab"
       screenOptions={{
         headerShown: false,
       }}
@@ -21,6 +22,7 @@ const MainStack = () => {
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="MainTab" component={MainTab} />
+      <Stack.Screen name="Story" component={Story} />
     </Stack.Navigator>
   );
 };
