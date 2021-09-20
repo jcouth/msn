@@ -17,13 +17,23 @@ export const Areas = styled.View`
   padding: 50px 25px;
 `;
 
-export const VideoArea = styled.TouchableWithoutFeedback`
+export const VideoArea = styled.View`
   flex: 1;
   width: 100%;
   height: 100%;
   position: absolute;
   top: 0;
   left: 0;
+`;
+
+export const VideoClickArea = styled.View`
+  flex: 1;
+  flex-direction: row;
+`;
+
+export const VideoClick = styled.TouchableOpacity`
+  flex: 1;
+  width: 50%;
 `;
 
 export const StyledVideo = styled(Video)`
@@ -47,10 +57,18 @@ export const StoriesArea = styled.View`
 
 export const StoriesBar = styled.View`
   flex: 1;
+  flex-direction: row;
   height: 3px;
   margin: 0 5px;
+  /* background-color: rgba(255, 255, 255, 0.3); */
+  /* background-color: ${(props) =>
+    props.opened ? "#ffffff" : "rgba(255, 255, 255, 0.3)"}; */
   background-color: ${(props) =>
-    props.opened ? "#ff0000" : props.active ? "orange" : "#ffffff"};
+    props.opened
+      ? "#ffffff"
+      : props.active
+      ? "rgba(255, 255, 255, 0.7)"
+      : "rgba(255, 255, 255, 0.3)"};
 `;
 
 export const UserArea = styled.View`

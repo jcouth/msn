@@ -18,8 +18,11 @@ import {
   InputArea,
   StyledVideo,
   VideoArea,
+  VideoClickArea,
+  VideoClick,
 } from "./styles";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import Animated from "react-native-reanimated";
 
 const Story = ({ navigation: { goBack }, route: { params } }) => {
   const { user } = params;
@@ -28,6 +31,7 @@ const Story = ({ navigation: { goBack }, route: { params } }) => {
     active: 0,
     when: user.stories[0].when,
     video: user.stories[0].video,
+    duration: 0,
   });
 
   const getColor = (status) => {
@@ -38,16 +42,44 @@ const Story = ({ navigation: { goBack }, route: { params } }) => {
     return color;
   };
 
-  const goToNextVideo = () => {
-    const position = activeStory.active + 1;
-    if (position < user.stories.length) {
+  const prevVideo = () => {
+    const position = activeStory.active - 1;
+    if (0 <= position) {
       setActiveStory({
         active: position,
         when: user.stories[position].when,
         video: user.stories[position].video,
       });
+    }
+  };
+
+  const nextVideo = () => {
+    const position = activeStory.active + 1;
+    if (position < user.stories.length) {
+      setActiveStory({
+        active: position,
+        when: user.stories[position].when,
+        video: user.stories[position].video, // rmv
+      });
     } else {
       goBack();
+    }
+  };
+
+  const _handleVideoRef = (component) => {
+    if (component !== null) {
+      if (video.current !== null) {
+        video.current.stopAsync();
+        video.current.unloadAsync();
+      }
+      const playbackObject = component;
+      video.current = playbackObject;
+      video.current.loadAsync(
+        {
+          uri: user.stories[activeStory.active].video,
+        },
+        { progressUpdateIntervalMillis: 1000, shouldPlay: true }
+      );
     }
   };
 
@@ -55,25 +87,30 @@ const Story = ({ navigation: { goBack }, route: { params } }) => {
     <Container>
       <StatusBar backgroundColor="#000000" barStyle="light-content" />
       <Content colors={["#D8DEEF", "#94B8FB", "#D8DEEF"]}>
-        <VideoArea
-          onPress={() => {
-            goToNextVideo();
-          }}
-        >
+        <VideoArea>
           <StyledVideo
-            ref={video}
-            source={{
-              uri: activeStory.video,
-            }}
+            ref={_handleVideoRef}
             // useNativeControls
             resizeMode="contain"
             shouldPlay={true}
             onPlaybackStatusUpdate={(e) => {
               if (e.didJustFinish) {
-                goToNextVideo();
+                nextVideo();
               }
             }}
           />
+          <VideoClickArea>
+            <VideoClick
+              onPress={() => {
+                prevVideo();
+              }}
+            />
+            <VideoClick
+              onPress={() => {
+                nextVideo();
+              }}
+            />
+          </VideoClickArea>
         </VideoArea>
         <Areas>
           <TopArea>
@@ -84,7 +121,16 @@ const Story = ({ navigation: { goBack }, route: { params } }) => {
                     active={activeStory.active === index ? 1 : 0}
                     opened={index < activeStory.active ? 1 : 0}
                     key={index}
-                  />
+                  >
+                    {/* {activeStory.active === index && (
+                      <Animated.View
+                        style={{
+                          backgroundColor: "#fff",
+                          width: `${progress}%`,
+                        }}
+                      />
+                    )} */}
+                  </StoriesBar>
                 );
               })}
             </StoriesArea>
@@ -127,8 +173,7 @@ const Story = ({ navigation: { goBack }, route: { params } }) => {
                 borderSize="1px"
                 borderColor="#ffffff"
                 borderRadius="50px"
-                caretCo
-                // padding="5px 10px"
+                padding="5px 10px"
                 rightIcon={
                   <TouchableOpacity>
                     <MaterialCommunityIcons
