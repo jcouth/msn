@@ -9,14 +9,15 @@ const Tab = createMaterialTopTabNavigator();
 const MainTab = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Chat"
+      initialRouteName="TabChat"
       screenOptions={{
         headerShown: false,
+        tabBarActiveTintColor: "#4E609B",
       }}
     >
-      <Tab.Screen name="Chat" component={TabChat} />
-      <Tab.Screen name="Groups" component={TabGroups} />
-      <Tab.Screen name="Stories" component={TabStories} />
+      <Tab.Screen name="TabChat" component={TabChat} />
+      <Tab.Screen name="TabGroups" component={TabGroups} />
+      <Tab.Screen name="TabStories" component={TabStories} />
     </Tab.Navigator>
   );
 };

@@ -7,9 +7,9 @@ import { Container, Content } from "./styles";
 const Home = () => {
   return (
     <Container>
-      <StatusBar backgroundColor="#F9F9F9" barStyle="dark-content" />
+      <StatusBar backgroundColor="#d8deef" barStyle="dark-content" />
       <Content>
-        <Header style={{ padding: 25, paddingBottom: 0 }} />
+        <Header />
         <MainTab />
       </Content>
     </Container>

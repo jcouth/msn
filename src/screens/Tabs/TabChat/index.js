@@ -1,5 +1,6 @@
 import React from "react";
 import { ScrollView, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import Accordion from "../../../components/Accordion";
 import ChatItem from "../../../components/Accordion/ChatItem";
 import { Content } from "./styles";
@@ -130,6 +131,8 @@ const data_friends = {
 };
 
 const TabChat = () => {
+  const navigation = useNavigation();
+
   return (
     <>
       <Content colors={["#F9F9F9", "#FFFFFF", "#F9F9F9"]}>
@@ -143,7 +146,13 @@ const TabChat = () => {
               total={data_favourites.length}
             >
               {data_favourites.users.map((user, index) => (
-                <ChatItem key={index} user={user} />
+                <ChatItem
+                  key={index}
+                  user={user}
+                  onPress={() => {
+                    navigation.navigate("Chat");
+                  }}
+                />
               ))}
             </Accordion>
             <Accordion

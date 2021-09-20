@@ -5,7 +5,7 @@ export const InputArea = styled.View`
   justify-content: center;
   align-items: center;
   width: ${(props) => (props.width ? props.width : "100%")};
-  padding: ${(props) => (props.padding ? props.padding : "10px")};
+  padding: ${(props) => (props.customPadding ? props.customPadding : "10px")};
   border: ${(props) => (props.borderSize ? props.borderSize : 0)} solid
     ${(props) => (props.borderColor ? props.borderColor : "transparent")};
   border-radius: ${(props) =>
@@ -18,6 +18,7 @@ export const StyledInput = styled.TextInput`
   flex: 1;
   margin-left: ${(props) => (props.leftMargin ? "10px" : 0)};
   font-size: ${(props) => (props.textSize ? props.textSize : "16px")};
+  text-align: ${(props) => (props.textAlign ? props.textAlign : "left")};
 `;
 
 export const RevealPassword = styled.TouchableOpacity`

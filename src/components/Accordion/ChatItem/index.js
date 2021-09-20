@@ -1,4 +1,5 @@
 import React from "react";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import ProfilePicture from "../../ProfilePicture";
 import {
   InfoArea,
@@ -12,7 +13,7 @@ import {
   LastNumberMessages,
 } from "./styles";
 
-const ChatItem = ({ user }) => {
+const ChatItem = ({ user, onPress }) => {
   const getColor = (status) => {
     let color = ["#fff", "#D8D8D8", "#808080"]; // Offline
     if (status === "Online") color = ["#fff", "#C3EFCB", "#39CA54"];
@@ -22,7 +23,7 @@ const ChatItem = ({ user }) => {
   };
 
   return (
-    <>
+    <TouchableWithoutFeedback onPress={onPress}>
       <InfoArea>
         <ProfilePicture
           width="50px"
@@ -48,7 +49,7 @@ const ChatItem = ({ user }) => {
           )}
         </LastMessageArea>
       </InfoArea>
-    </>
+    </TouchableWithoutFeedback>
   );
 };
 

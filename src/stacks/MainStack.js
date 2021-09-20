@@ -6,13 +6,14 @@ import SignUp from "../screens/SignUp";
 import Home from "../screens/Home";
 import MainTab from "./MainTab";
 import Story from "../screens/Story";
+import Chat from "../screens/Chat";
 
 const Stack = createStackNavigator();
 
 const MainStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Preload"
+      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
       }}
@@ -23,6 +24,7 @@ const MainStack = () => {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Story" component={Story} />
+      <Stack.Screen name="Chat" component={Chat} />
     </Stack.Navigator>
   );
 };

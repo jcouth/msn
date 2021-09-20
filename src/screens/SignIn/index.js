@@ -72,11 +72,11 @@ const SignIn = () => {
         const { signed, info, token } = await signIn(data);
         if (signed) {
           // AsyncStorage.setItem("token", token);
-          // navigation.navigate("Home");
-          navigation.reset({
-            routes: [{ name: "Home" }],
-          });
-          console.log("Logou!", info);
+          navigation.navigate("Home");
+          // navigation.reset({
+          //   routes: [{ name: "Home" }],
+          // });
+          // console.log("Logou!", info);
         } else {
           Toast.show({
             type: "error",

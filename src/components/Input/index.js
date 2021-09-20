@@ -7,6 +7,7 @@ const Input = ({
   icon,
   rightIcon,
   textSize,
+  textAlign,
   backgroundColor,
   borderSize,
   borderColor,
@@ -23,13 +24,14 @@ const Input = ({
       borderSize={borderSize}
       borderColor={borderColor}
       borderRadius={borderRadius}
-      padding={padding}
+      customPadding={padding}
     >
       {icon}
       <StyledInput
         leftMargin={icon ? true : false}
         textSize={textSize}
         secureTextEntry={secureEntry}
+        textAlign={textAlign}
         {...rest}
       />
       {rightIcon}

@@ -5,6 +5,8 @@ export const HeaderArea = styled.View`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  padding: 25px 25px 12.5px;
+  background-color: #d8deef;
 `;
 
 export const InfoArea = styled.View`
@@ -38,11 +40,22 @@ export const UserStatusText = styled.Text`
 export const BottomInfoArea = styled.View`
   flex: 1;
   justify-content: center;
-  align-items: center;
+  align-content: center;
   width: 100%;
 `;
 
+export const BottomInfoAreaChat = styled.View`
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const BottomButtonsArea = styled.View`
+  flex-direction: row;
+`;
+
 export const UserMessageText = styled.Text`
-  font-size: 11px;
-  color: #929bb3;
+  font-size: 12px;
+  color: #4e609b;
 `;
