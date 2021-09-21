@@ -199,20 +199,7 @@ const Header = ({ chatHeader, goBack }) => {
       </HeaderArea>
       {expanded && (
         <>
-          {/* <TouchableWithoutFeedback
-          onPress={() => {
-            setExpanded((expanded) => !expanded);
-          }}
-        > */}
-          <HeaderOptionsShadow
-            top={top}
-            onPress={() => {
-              setExpanded((expanded) => !expanded);
-            }}
-          >
-            <View></View>
-          </HeaderOptionsShadow>
-          {/* </TouchableWithoutFeedback> */}
+          <HeaderOptionsShadow top={top} />
         </>
       )}
     </>

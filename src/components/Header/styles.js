@@ -65,7 +65,7 @@ export const UserMessageText = styled.Text`
   color: #4e609b;
 `;
 
-export const HeaderOptionsShadow = styled.TouchableOpacity`
+export const HeaderOptionsShadow = styled.View`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -83,6 +83,7 @@ export const HeaderOptions = styled.View`
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   background-color: #d8deef;
+  z-index: 2;
 `;
 
 export const HeaderItem = styled.View`
