@@ -1,10 +1,8 @@
 import styled from "styled-components/native";
 
 export const HeaderArea = styled.View`
-  /* padding: 25px 25px 12.5px;
-  background-color: #d8deef; */
   position: relative;
-  z-index: 1;
+  z-index: 2;
 `;
 
 export const HeaderUserArea = styled.View`
@@ -65,6 +63,15 @@ export const BottomButtonsArea = styled.View`
 export const UserMessageText = styled.Text`
   font-size: 12px;
   color: #4e609b;
+`;
+
+export const HeaderOptionsShadow = styled.TouchableOpacity`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: ${(props) => (props.top ? `${props.top}px` : "50%")};
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 `;
 
 export const HeaderOptions = styled.View`
