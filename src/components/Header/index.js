@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Modal, View } from "react-native";
+import { View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import ProfilePicture from "../ProfilePicture";
 import Input from "../Input";
 import {
@@ -29,8 +30,10 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
+import firebase from "firebase/app";
 
 const Header = ({ chatHeader, goBack }) => {
+  const navigation = useNavigation();
   const [expanded, setExpanded] = useState(false);
   const [top, setTop] = useState(0);
 
@@ -183,7 +186,10 @@ const Header = ({ chatHeader, goBack }) => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  console.log("a");
+                  firebase.auth().signOut();
+                  navigation.reset({
+                    routes: [{ name: "SignIn" }],
+                  });
                 }}
               >
                 <HeaderItem>

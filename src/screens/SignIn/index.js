@@ -1,18 +1,12 @@
 import React, { useRef, useState } from "react";
-import {
-  StatusBar,
-  TouchableOpacity,
-  Text,
-  View,
-  ActivityIndicator,
-} from "react-native";
+import { StatusBar, TouchableOpacity, ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Controller, useForm } from "react-hook-form";
-import Input from "../../components/Input";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import Toast from "react-native-toast-message";
-import * as Yup from "yup";
-import { signIn } from "../../services/api";
+import Input from "../../components/Input";
 import {
   Container,
   Content,
@@ -26,70 +20,99 @@ import {
   InputArea,
   FormButton,
   FormButtonText,
-  InputErrorText,
   InputError,
+  InputErrorText,
 } from "./styles";
 import { Feather, FontAwesome, Ionicons } from "@expo/vector-icons";
+import firebase from "firebase/app";
 
 const SignIn = () => {
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      .email("O e-mail informado não é válido")
+      .required("O e-mail não pode estar em branco"),
+    password: yup
+      .string()
+      .min(8, "A senha deve ter no mínimo 8 caracteres")
+      .max(32, "A senha deve ter no máximo 32 caracteres")
+      .matches(/(?=.*[A-Z].*[A-Z]).+/g, "Ao menos dois caracteres maiúsculos")
+      .matches(/(?=.*[!@#$&*]).+/g, "Ao menos um caractere especial")
+      .matches(/(?=.*[0-9].*[0-9]).+/g, "Ao menos dois números")
+      .matches(
+        /(?=.*[a-z].*[a-z].*[a-z]).+/g,
+        "Ao menos três caracteres minúsculos"
+      )
+      .required("A senha não pode estar em branco"),
+  });
+
   const navigation = useNavigation();
-  const toastRef = useRef();
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: yupResolver(schema) });
   const [loading, setLoading] = useState(false);
+  const toastRef = useRef(null);
 
   const onSubmit = async (data) => {
-    const validate = async (data) => {
-      let isValid = true;
-      // ------------------- yup
-      // try {
-      //   const schema = Yup.object().shape({
-      //     username: Yup.string().matches("\a\g").required(),
-      //     password: Yup.string().matches("\a\g").required(),
-      //   });
-
-      //   await schema.validate(data, { abortEarly: false });
-
-      //   // console.log("isvalid: ",isValid);
-      //   isValid = true;
-      // } catch (err) {
-      //   // console.error(err);
-      //   if (err instanceof Yup.ValidationError) {
-      //     // Validation failed
-      //     console.log(err.message);
-      //   }
-      // }
-
-      return isValid;
-    };
-
-    if (data !== null) {
-      setLoading(true);
-      if (await validate(data)) {
-        const { signed, info, token } = await signIn(data);
-        if (signed) {
-          // AsyncStorage.setItem("token", token);
-          navigation.navigate("Home");
-          // navigation.reset({
-          //   routes: [{ name: "Home" }],
-          // });
-          // console.log("Logou!", info);
+    setLoading(true);
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(data.email, data.password)
+      .then((signData) => {
+        if (signData.user.emailVerified) {
+          navigation.reset({
+            routes: [{ name: "Home" }],
+          });
         } else {
-          Toast.show({
-            type: "error",
-            position: "bottom",
-            text1: "Usuário ou senha incorretos!",
-            text2: "Verifique seus dados",
+          navigation.reset({
+            routes: [
+              {
+                name: "VerifyEmail",
+                params: {
+                  user: { email: data.email, password: data.password },
+                  justCreated: false,
+                },
+              },
+            ],
           });
         }
-      } else {
-        console.log("Não validou!");
-      }
-      setLoading(false);
-    }
+      })
+      .catch((error) => {
+        setLoading(false);
+        if (error.code === "auth/user-not-found") {
+          console.log("That email address doesn't exist!");
+          toastRef.current.show({
+            type: "error",
+            position: "bottom",
+            text1: "E-mail não encontrado",
+            text2: "Parece que este usuário não existe :(",
+          });
+        }
+
+        if (error.code === "auth/invalid-email") {
+          console.log("That email address is invalid!");
+          toastRef.current.show({
+            type: "error",
+            position: "bottom",
+            text1: "E-mail inválido",
+            text2: "Este e-mail está em um formato inválido :(",
+          });
+        }
+
+        if (error.code === "auth/network-request-failed") {
+          console.log("A network error has occurred!");
+          toastRef.current.show({
+            type: "error",
+            position: "bottom",
+            text1: "Sem conexão com a internet",
+            text2: "Houve um problema para nos conectarmos com o servidor :(",
+          });
+        }
+
+        console.error(error.code, error);
+      });
   };
 
   return (
@@ -97,7 +120,8 @@ const SignIn = () => {
       <StatusBar backgroundColor="#D8DEEF" barStyle="dark-content" />
       <Content colors={["#D8DEEF", "#94B8FB", "#D8DEEF"]}>
         <Toast
-          ref={(ref) => Toast.setRef(ref)}
+          ref={toastRef}
+          // ref={(ref) => Toast.setRef(ref)}
           style={{ zIndex: 1, elevation: 1 }}
         />
         <HeaderArea>
@@ -128,9 +152,9 @@ const SignIn = () => {
               }}
               render={({ field: { onChange, onBlur, value } }) => (
                 <Input
-                  borderColor={errors.username ? "#ff0000" : "#ffffff"}
+                  borderColor={errors.email ? "#ff0000" : "#ffffff"}
                   borderSize="1px"
-                  placeholder="Username"
+                  placeholder="email"
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
@@ -138,19 +162,17 @@ const SignIn = () => {
                     <FontAwesome
                       name="user-o"
                       size={20}
-                      color={errors.username ? "#ff0000" : "#192758"}
+                      color={errors.email ? "#ff0000" : "#192758"}
                     />
                   }
                 />
               )}
-              name="username"
+              name="email"
               defaultValue=""
             />
-            {errors.username && (
+            {errors.email && (
               <InputError>
-                <InputErrorText>
-                  O usuário não pode estar em branco.
-                </InputErrorText>
+                <InputErrorText>{errors.email.message}</InputErrorText>
               </InputError>
             )}
           </InputArea>
@@ -181,12 +203,9 @@ const SignIn = () => {
               )}
               name="password"
             />
-            {/* refatorar */}
             {errors.password && (
               <InputError>
-                <InputErrorText>
-                  A senha não pode estar em branco.
-                </InputErrorText>
+                <InputErrorText>{errors.password.message}</InputErrorText>
               </InputError>
             )}
           </InputArea>

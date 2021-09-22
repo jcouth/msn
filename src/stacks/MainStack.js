@@ -7,13 +7,14 @@ import Home from "../screens/Home";
 import MainTab from "./MainTab";
 import Story from "../screens/Story";
 import Chat from "../screens/Chat";
+import VerifyEmail from "../screens/VerifyEmail";
 
 const Stack = createStackNavigator();
 
 const MainStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="Preload"
       screenOptions={{
         headerShown: false,
       }}
@@ -22,9 +23,9 @@ const MainStack = () => {
       <Stack.Screen name="SignIn" component={SignIn} />
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Story" component={Story} />
       <Stack.Screen name="Chat" component={Chat} />
+      <Stack.Screen name="VerifyEmail" component={VerifyEmail} />
     </Stack.Navigator>
   );
 };

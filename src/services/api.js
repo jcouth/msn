@@ -1,4 +1,5 @@
-const BASE = "";
+const BASE = "https://compassomsn-default-rtdb.firebaseio.com";
+
 import { data as users } from "./data/user";
 import { data as tokens } from "./data/token";
 import { data as families } from "./data/family";
@@ -32,49 +33,93 @@ export const signIn = async ({ username, password }) => {
     );
   };
 
-  const getData = (from, id) => {
-    return from.filter((data) => data.id_user === id);
-  };
-
   const getMoreInfo = (info) => {
-    // const favs = getData(favourites, info.id)[0].favourites;
-    // // friends.filter((data) => {
-    // //   if (data.id_user1 === info.id) {
-    // //     const { name, status, message } = users.filter(
-    // //       (data2) => data2.id === data.id_user2
-    // //     );
-    // //     return { name, status, message }
-    // //   }
-    // // });
-    // console.log(
-    //   "info:\n",
-    //   {
-    //     ...info,
-    //     favourites: getData(favourites, info.id)[0].favourites,
-    //     families: getData(families, info.id)[0].families,
-    //     friends: friends.filter((data) => {
-    //       if (data.id_user1 === info.id) {
-    //         const { name, status, message } = users.filter(
-    //           (data2) => data2.id === data.id_user2
-    //         );
-    //         return { name, status, message };
-    //       }
-    //     }),
-    //   },
-    //   "\nfim"
-    // );
-    // // const favs =
-    // // return { ...info, favourites: []};
+    const getUserInfo = (id) => {
+      const { name, status, message } = users.filter(
+        (data) => data.id === id
+      )[0];
+      return { id, name, status, message };
+    };
+
+    const _favourites = [];
+    favourites.filter((data) => {
+      if (data.id_user === info.id) {
+        data.favourites.forEach((data2) => {
+          _favourites.push(getUserInfo(data2.id_user));
+        });
+      }
+    });
+    const _families = [];
+    families.filter((data) => {
+      if (data.id_user === info.id) {
+        data.families.forEach((data2) => {
+          _families.push(getUserInfo(data2.id_user));
+        });
+      }
+    });
+    const _friends = [];
+    friends.filter((data) => {
+      if (data.id_user === info.id) {
+        data.friends.forEach((data2) => {
+          _friends.push(getUserInfo(data2.id_user));
+        });
+      }
+    });
+    return {
+      ...info,
+      favourites: _favourites,
+      families: _families,
+      friends: _friends,
+    };
   };
 
   let signed = false;
   let token = undefined;
-  const info = verify(username, password)[0];
+  let info = verify(username, password)[0];
   if (info) {
-    // getMoreInfo(info);
-    // info = [...info, ...getMoreInfo()];
     signed = true;
+    info = getMoreInfo(info);
     token = await generateToken();
   }
   return { signed, info, token };
+};
+
+export default {
+  checkToken: async () => {},
+  signIn: async ({ email, password }) => {
+    const sign = await verify(email, password); // chamada de api
+
+    const _favourites = [];
+    favourites.filter((data) => {
+      if (data.id_user === sign.id) {
+        data.favourites.forEach((data2) => {
+          _favourites.push(getUserInfo(data2.id_user));
+        });
+      }
+    });
+    const _families = [];
+    families.filter((data) => {
+      if (data.id_user === sign.id) {
+        data.families.forEach((data2) => {
+          _families.push(getUserInfo(data2.id_user));
+        });
+      }
+    });
+    const _friends = [];
+    friends.filter((data) => {
+      if (data.id_user === sign.id) {
+        data.friends.forEach((data2) => {
+          _friends.push(getUserInfo(data2.id_user));
+        });
+      }
+    });
+
+    return {
+      ...sign,
+      favourites: _favourites,
+      families: _families,
+      friends: _friends,
+    };
+  },
+  signUp: async () => {},
 };

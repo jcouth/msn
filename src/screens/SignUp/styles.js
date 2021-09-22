@@ -119,3 +119,13 @@ export const FormButtonText = styled.Text`
         : "#192758"
       : "#192758"};
 `;
+
+export const InputError = styled.View`
+  /* flex-grow: 1; */
+  /* margin: 5px 0 20px; */
+`;
+
+export const InputErrorText = styled.Text`
+  font-size: 16px;
+  color: #ff0000;
+`;
