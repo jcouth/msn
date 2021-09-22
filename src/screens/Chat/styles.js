@@ -56,7 +56,8 @@ export const BottomArea = styled.View`
   flex-direction: row;
   align-items: center;
   width: 100%;
-  padding: 20px 10px 20px 5px;
+  /* height: 200px; */
+  /* padding: 20px 10px 20px 5px; */
   background: #d8deef;
 `;
 

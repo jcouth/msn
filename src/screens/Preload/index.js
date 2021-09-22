@@ -9,18 +9,25 @@ const Preload = () => {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
+    let isMounted = true;
     firebase.auth().onAuthStateChanged((user) => {
-      setCurrentUser(user);
-      if (currentUser) {
-        navigation.reset({
-          routes: [{ name: "Home" }],
-        });
-      } else {
-        navigation.reset({
-          routes: [{ name: "SignIn" }],
-        });
+      console.log("aqui", isMounted);
+      if (isMounted) {
+        setCurrentUser(user);
+        if (currentUser) {
+          navigation.reset({
+            routes: [{ name: "Home" }],
+          });
+        } else {
+          navigation.reset({
+            routes: [{ name: "SignIn" }],
+          });
+        }
       }
     });
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

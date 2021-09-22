@@ -32,7 +32,11 @@ import {
 } from "react-native-gesture-handler";
 import firebase from "firebase/app";
 
-const Header = ({ chatHeader, goBack }) => {
+const Header = ({
+  user = { name: "Tyrone", status: "Online" },
+  chatHeader,
+  goBack,
+}) => {
   const navigation = useNavigation();
   const [expanded, setExpanded] = useState(false);
   const [top, setTop] = useState(0);
@@ -58,8 +62,8 @@ const Header = ({ chatHeader, goBack }) => {
           <InfoArea>
             <TopInfoArea>
               <View>
-                <UserNameText>Tyrone Fuller</UserNameText>
-                <UserStatusText>(Online)</UserStatusText>
+                <UserNameText>{user.name}</UserNameText>
+                <UserStatusText>({user.status})</UserStatusText>
               </View>
               <TopInfoAreaButtons>
                 {chatHeader ? (

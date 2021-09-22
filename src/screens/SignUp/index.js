@@ -69,19 +69,26 @@ const SignUp = () => {
       .auth()
       .createUserWithEmailAndPassword(data.email, data.password)
       .then((userData) => {
-        userData.user.sendEmailVerification();
-        firebase.auth().signOut();
-        navigation.reset({
-          routes: [
-            {
-              name: "VerifyEmail",
-              params: {
-                user: { email: data.email, password: data.password },
-                justCreated: true,
-              },
-            },
-          ],
-        });
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(userData.user.uid)
+          .set({ name: data.username, email: data.email, status: "Online" })
+          .then(() => {
+            userData.user.sendEmailVerification();
+            firebase.auth().signOut();
+            navigation.reset({
+              routes: [
+                {
+                  name: "VerifyEmail",
+                  params: {
+                    user: { email: data.email, password: data.password },
+                    justCreated: true,
+                  },
+                },
+              ],
+            });
+          });
       })
       .catch((error) => {
         if (error.code === "auth/email-already-in-use") {

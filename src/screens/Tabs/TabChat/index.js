@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Accordion from "../../../components/Accordion";
 import ChatItem from "../../../components/Accordion/ChatItem";
 import { Content } from "./styles";
+// import firebase from "firebase/app";
 
 const data_favourites = {
   notOffline: 2,
@@ -130,8 +131,29 @@ const data_friends = {
   ],
 };
 
+// const db = firebase.firestore();
+// const chatRefs = db.collection("chats");
+
 const TabChat = () => {
   const navigation = useNavigation();
+  // const [messages, setMessages] = useState([]);
+
+  // useEffect(() => {
+  //   const unsubscribe = chatRefs.onSnapshot((querySnapshot) => {
+  //     const messagesFirestore = querySnapshot
+  //       .docChanges()
+  //       .filter(({ type }) => {
+  //         type === "added";
+  //       })
+  //       .map(({ doc }) => {
+  //         const message = doc.data();
+  //         return { ...message, createdAt: message.createdAt.toDate() };
+  //       })
+  //       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  //     setMessages(messagesFirestore);
+  //   });
+  //   return () => unsubscribe();
+  // }, []);
 
   return (
     <>

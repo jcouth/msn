@@ -23,7 +23,8 @@ const Preload = ({ route: { params } }) => {
   const toastRef = useRef(null);
 
   useEffect(() => {
-    if (justCreated) {
+    let isMounted = true;
+    if (isMounted && justCreated) {
       toastRef.current.show({
         type: "success",
         position: "bottom",
@@ -32,6 +33,9 @@ const Preload = ({ route: { params } }) => {
       });
       justCreated = false;
     }
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const handleVerify = useCallback(() => {
@@ -61,6 +65,16 @@ const Preload = ({ route: { params } }) => {
     }
   }, []);
 
+  const handleSendAgain = () => {
+    firebase.auth().currentUser.sendEmailVerification();
+    toastRef.current.show({
+      type: "success",
+      position: "bottom",
+      text1: "E-mail enviado com sucesso",
+      text2: "Confira sua caixa de e-mail :)",
+    });
+  };
+
   return (
     <Container>
       <StatusBar backgroundColor="#D8DEEF" barStyle="dark-content" />
@@ -82,6 +96,9 @@ const Preload = ({ route: { params } }) => {
         <ButtonArea>
           <Button primary onPress={handleVerify}>
             <ButtonText>Já verifiquei minha conta</ButtonText>
+          </Button>
+          <Button secondary onPress={handleSendAgain}>
+            <ButtonText>Enviar e-mail novamente</ButtonText>
           </Button>
           <Button
             onPress={() => {

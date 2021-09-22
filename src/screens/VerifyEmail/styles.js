@@ -48,7 +48,8 @@ export const Button = styled.TouchableOpacity`
   margin: 10px 0;
   padding: 7.5px 25px;
   border-radius: 10px;
-  background-color: ${(props) => (props.primary ? "green" : "#929bb3")};
+  background-color: ${(props) =>
+    props.primary ? "#4e609b" : props.secondary ? "#94b8fb" : "#929bb3"};
 `;
 
 export const ButtonText = styled.Text`
