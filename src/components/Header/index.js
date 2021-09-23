@@ -56,7 +56,9 @@ const Header = ({
           >
             <ProfilePicture
               colors={["#fff", "#C3EFCB", "#39CA54"]}
-              source={require("../../assets/jacquin.png")}
+              source={{
+                uri: user.avatar,
+              }}
             />
           </TouchableWithoutFeedback>
           <InfoArea>

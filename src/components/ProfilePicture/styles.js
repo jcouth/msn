@@ -20,4 +20,6 @@ export const PictureStatus = styled.View`
 
 export const Picture = styled.Image`
   flex: 1;
+  width: 100%;
+  height: 100%;
 `;
