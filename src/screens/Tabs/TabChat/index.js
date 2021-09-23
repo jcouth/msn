@@ -76,69 +76,6 @@ const data_family = {
   ],
 };
 
-const data_friends = {
-  notOffline: 3,
-  length: 7,
-  users: [
-    {
-      name: "Erikas",
-      status: "Online",
-      message: "",
-      lastMessage: "13:00",
-      avatar: require("../../../assets/jacquin.png"),
-      newMessages: 0,
-    },
-    {
-      name: "Anna",
-      status: "Busy",
-      message: "",
-      lastMessage: "12:04",
-      avatar: require("../../../assets/jacquin.png"),
-      newMessages: 0,
-    },
-    {
-      name: "Maitê",
-      status: "Away",
-      message: "...",
-      lastMessage: "10:48",
-      avatar: require("../../../assets/jacquin.png"),
-      newMessages: 1,
-    },
-    {
-      name: "Virgínia",
-      status: "Offline",
-      message: "...",
-      lastMessage: "yesterday",
-      avatar: require("../../../assets/jacquin.png"),
-      newMessages: 0,
-    },
-    {
-      name: "Jean",
-      status: "Offline",
-      message: "...",
-      lastMessage: "02/09/2021",
-      avatar: require("../../../assets/jacquin.png"),
-      newMessages: 0,
-    },
-    {
-      name: "Dinar",
-      status: "Offline",
-      message: ":p",
-      lastMessage: "03/08/2021",
-      avatar: require("../../../assets/jacquin.png"),
-      newMessages: 0,
-    },
-    {
-      name: "Broz",
-      status: "Offline",
-      message: ":|",
-      lastMessage: "01/08/2021",
-      avatar: require("../../../assets/jacquin.png"),
-      newMessages: 0,
-    },
-  ],
-};
-
 const TabChat = () => {
   const navigation = useNavigation();
   const [friends, setFriends] = useState([]);
@@ -163,31 +100,7 @@ const TabChat = () => {
         console.log(array);
         setAmountOnlineFriend(amountOnlineFriend);
         setFriends(array);
-        // snap.docs.map((doc, index) => {
-        //   console.log(doc.data());
-        // });
-        // const array = snap.data();
-        // let amountOnline = 0;
-        // array.filter((data) => {
-        //   if (data.status === "Online") amountOnline++;
-        // });
-        // setAmountOnlineFriend(amountOnline);
-        // setFriends(array);
       });
-    // firebase
-    //   .firestore()
-    //   .collection("friends")
-    //   .doc(firebase.auth().currentUser.uid)
-    //   .get()
-    //   .then((snap) => {
-    //     const array = snap.data().entry;
-    //     let amountOnline = 0;
-    //     array.filter((data) => {
-    //       if (data.status === "Online") amountOnline++;
-    //     });
-    //     setAmountOnlineFriend(amountOnline);
-    //     setFriends(array);
-    //   });
   }, []);
 
   return (

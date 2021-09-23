@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { StatusBar, TouchableOpacity, ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -23,7 +22,7 @@ import {
   InputError,
   InputErrorText,
 } from "./styles";
-import { Feather, FontAwesome, Ionicons } from "@expo/vector-icons";
+import { Feather, Ionicons } from "@expo/vector-icons";
 import firebase from "firebase/app";
 
 const SignIn = () => {
@@ -32,18 +31,7 @@ const SignIn = () => {
       .string()
       .email("O e-mail informado não é válido")
       .required("O e-mail não pode estar em branco"),
-    password: yup
-      .string()
-      // .min(8, "A senha deve ter no mínimo 8 caracteres")
-      // .max(32, "A senha deve ter no máximo 32 caracteres")
-      // .matches(/(?=.*[A-Z].*[A-Z]).+/g, "Ao menos dois caracteres maiúsculos")
-      // .matches(/(?=.*[!@#$&*]).+/g, "Ao menos um caractere especial")
-      // .matches(/(?=.*[0-9].*[0-9]).+/g, "Ao menos dois números")
-      // .matches(
-      //   /(?=.*[a-z].*[a-z].*[a-z]).+/g,
-      //   "Ao menos três caracteres minúsculos"
-      // )
-      .required("A senha não pode estar em branco"),
+    password: yup.string().required("A senha não pode estar em branco"),
   });
 
   const navigation = useNavigation();
@@ -120,8 +108,6 @@ const SignIn = () => {
             text2: "Houve um problema para nos conectarmos com o servidor :(",
           });
         }
-
-        // console.error(error.code, error);
       });
   };
 
@@ -129,11 +115,7 @@ const SignIn = () => {
     <Container>
       <StatusBar backgroundColor="#D8DEEF" barStyle="dark-content" />
       <Content colors={["#D8DEEF", "#94B8FB", "#D8DEEF"]}>
-        <Toast
-          ref={toastRef}
-          // ref={(ref) => Toast.setRef(ref)}
-          style={{ zIndex: 1, elevation: 1 }}
-        />
+        <Toast ref={toastRef} style={{ zIndex: 1, elevation: 1 }} />
         <HeaderArea>
           <TitleArea>
             <TextArea>
@@ -169,8 +151,8 @@ const SignIn = () => {
                   onChangeText={onChange}
                   value={value}
                   icon={
-                    <FontAwesome
-                      name="user-o"
+                    <Ionicons
+                      name="mail-outline"
                       size={20}
                       color={errors.email ? "#ff0000" : "#192758"}
                     />
@@ -230,9 +212,6 @@ const SignIn = () => {
           <FormButton
             variant="secondary"
             onPress={() => {
-              // navigation.reset({
-              //   routes: [{ name: "SignUp" }],
-              // });
               navigation.navigate("SignUp");
             }}
           >

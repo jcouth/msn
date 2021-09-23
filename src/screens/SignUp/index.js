@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { StatusBar, TouchableOpacity, Text, View } from "react-native";
+import React, { useRef, useState } from "react";
+import { ActivityIndicator, StatusBar, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -62,9 +62,11 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
+  const [loading, setLoading] = useState(false);
   const toastRef = useRef(null);
 
   const onSubmit = async (data) => {
+    setLoading(true);
     firebase
       .auth()
       .createUserWithEmailAndPassword(data.email, data.password)
@@ -73,10 +75,14 @@ const SignUp = () => {
           .firestore()
           .collection("users")
           .doc(userData.user.uid)
-          .set({ name: data.username, email: data.email, status: "Online" })
+          .set({
+            name: data.username,
+            email: data.email,
+            status: "Online",
+            avatar: `https://ui-avatars.com/api/?name=${data.username}&length=1`,
+          })
           .then(() => {
             userData.user.sendEmailVerification();
-            firebase.auth().signOut();
             navigation.reset({
               routes: [
                 {
@@ -91,6 +97,7 @@ const SignUp = () => {
           });
       })
       .catch((error) => {
+        setLoading(false);
         if (error.code === "auth/email-already-in-use") {
           console.log("That email address is already in use!");
           toastRef.current.show({
@@ -110,8 +117,6 @@ const SignUp = () => {
             text2: "Este e-mail está em um formato inválido :(",
           });
         }
-
-        console.error(error);
       });
     // reset();
   };
@@ -194,8 +199,8 @@ const SignUp = () => {
                       onChangeText={onChange}
                       value={value}
                       icon={
-                        <FontAwesome
-                          name="at"
+                        <Ionicons
+                          name="mail-outline"
                           size={20}
                           color={errors.email ? "#ff0000" : "#192758"}
                         />
@@ -281,7 +286,9 @@ const SignUp = () => {
               </InputArea>
 
               <FormButton variant="primary" onPress={handleSubmit(onSubmit)}>
-                <FormButtonText variant="primary">Sign Up</FormButtonText>
+                <FormButtonText variant="primary">
+                  {loading ? <ActivityIndicator color="#ffffff" /> : "Sign Up"}
+                </FormButtonText>
               </FormButton>
               <FormButton
                 variant="secondary"

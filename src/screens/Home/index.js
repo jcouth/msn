@@ -17,7 +17,6 @@ const Home = () => {
         .doc(firebase.auth().currentUser.uid)
         .get()
         .then((snap) => {
-          // console.log("user data: ", snap.data());
           setUser(snap.data());
         });
     }

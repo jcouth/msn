@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { StatusBar } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Container, Content, ImageIcon, LoadingIcon } from "./styles";
@@ -6,15 +6,12 @@ import firebase from "firebase/app";
 
 const Preload = () => {
   const navigation = useNavigation();
-  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     let isMounted = true;
     firebase.auth().onAuthStateChanged((user) => {
-      console.log("aqui", isMounted);
       if (isMounted) {
-        setCurrentUser(user);
-        if (currentUser) {
+        if (user) {
           navigation.reset({
             routes: [{ name: "Home" }],
           });

@@ -48,37 +48,6 @@ const Chat = ({ navigation: { goBack }, route: { params } }) => {
         appendMessages(messagesFirebase);
       });
     return () => unsubscribe();
-    // .get()
-    // .then((snap) => {
-    //   const array = [];
-    //   let amountOnline = 0;
-    //   snap.docs.map((doc) => {
-    //     array.push(doc.data());
-    //   });
-    //   array.filter((data) => {
-    //     if (data.status === "Online") amountOnline++;
-    //   });
-    //   console.log(array);
-    //   setAmountOnlineFriend(amountOnlineFriend);
-    //   setFriends(array);
-
-    // const unsubscribe = firebase
-    //   .firestore()
-    //   .collection("chats")
-    //   // .doc(userData.user.uid)
-    //   .onSnapshot((querySnapchot) => {
-    //     const messagesFirebase = querySnapchot
-    //       .docChanges()
-    //       .filter(({ type }) => type === "added")
-    //       .map(({ doc }) => {
-    //         const message = doc.data();
-    //         return { ...message, createdAt: message.createdAt.toDate() };
-    //       })
-    //       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
-    //     // console.log(messagesFirebase);
-    //     appendMessages(messagesFirebase);
-    //   });
-    // return () => unsubscribe();
   }, []);
 
   const appendMessages = useCallback(
@@ -90,8 +59,8 @@ const Chat = ({ navigation: { goBack }, route: { params } }) => {
     [messages]
   );
 
-  const onSend = async (messages = {}) => {
-    const writes = messages.map((m) =>
+  const onSend = async (messages = []) => {
+    const whos_sending = messages.map((m) =>
       firebase
         .firestore()
         .collection("chats")
@@ -99,8 +68,9 @@ const Chat = ({ navigation: { goBack }, route: { params } }) => {
         .collection(user.uid)
         .add(m)
     );
-    await Promise.all(writes);
-    const writes2 = messages.map((m) =>
+    await Promise.all(whos_sending);
+
+    const whos_receiving = messages.map((m) =>
       firebase
         .firestore()
         .collection("chats")
@@ -108,7 +78,18 @@ const Chat = ({ navigation: { goBack }, route: { params } }) => {
         .collection(_id)
         .add(m)
     );
-    await Promise.all(writes2);
+    await Promise.all(whos_receiving);
+  };
+
+  const handleInputToolbar = (props) => {
+    return (
+      <InputToolbar
+        {...props}
+        containerStyle={{
+          backgroundColor: "#d8deef",
+        }}
+      />
+    );
   };
 
   return (
@@ -121,6 +102,7 @@ const Chat = ({ navigation: { goBack }, route: { params } }) => {
           user={{ _id: _id, ...user }}
           onSend={(messages) => onSend(messages)}
           renderAvatar={null}
+          renderInputToolbar={handleInputToolbar}
         />
         {/* <ChatArea>
           <ChatMessage
