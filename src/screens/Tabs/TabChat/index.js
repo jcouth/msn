@@ -111,36 +111,29 @@ const TabChat = () => {
             <Accordion
               title="Favourites"
               star
-              expanded
               notOffline={data_favourites.notOffline}
               total={data_favourites.length}
             >
               {data_favourites.users.map((user, index) => (
-                <ChatItem
-                  key={index}
-                  user={user}
-                  onPress={() => {
-                    navigation.navigate("Chat");
-                  }}
-                />
+                <ChatItem key={index} user={user} onPress={() => {}} />
               ))}
             </Accordion>
             <Accordion
               title="Family"
-              expanded
               notOffline={data_family.notOffline}
               total={data_family.length}
             >
               {data_family.users.map((user, index) => (
-                <ChatItem key={index} user={user} />
+                <ChatItem key={index} user={user} onPress={() => {}} />
               ))}
             </Accordion>
             <Accordion
               title="Friends"
-              expanded
+              expanded={0 < friends.length}
               notOffline={amountOnlineFriend}
               total={friends.length}
             >
+              {console.log(0 < friends.length)}
               {friends.map((user, index) => (
                 <ChatItem
                   key={index}

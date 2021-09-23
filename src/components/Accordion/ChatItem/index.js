@@ -31,9 +31,9 @@ const ChatItem = ({ user, onPress }) => {
           borderSize="2.5px"
           roundness="5px"
           colors={getColor(user.status)}
-          source={
-            user.avatar ? user.avatar : require("../../../assets/jacquin.png")
-          }
+          source={{
+            uri: user.avatar,
+          }}
         />
         <UserArea>
           <TopInfoArea>
