@@ -34,15 +34,15 @@ const SignIn = () => {
       .required("O e-mail não pode estar em branco"),
     password: yup
       .string()
-      .min(8, "A senha deve ter no mínimo 8 caracteres")
-      .max(32, "A senha deve ter no máximo 32 caracteres")
-      .matches(/(?=.*[A-Z].*[A-Z]).+/g, "Ao menos dois caracteres maiúsculos")
-      .matches(/(?=.*[!@#$&*]).+/g, "Ao menos um caractere especial")
-      .matches(/(?=.*[0-9].*[0-9]).+/g, "Ao menos dois números")
-      .matches(
-        /(?=.*[a-z].*[a-z].*[a-z]).+/g,
-        "Ao menos três caracteres minúsculos"
-      )
+      // .min(8, "A senha deve ter no mínimo 8 caracteres")
+      // .max(32, "A senha deve ter no máximo 32 caracteres")
+      // .matches(/(?=.*[A-Z].*[A-Z]).+/g, "Ao menos dois caracteres maiúsculos")
+      // .matches(/(?=.*[!@#$&*]).+/g, "Ao menos um caractere especial")
+      // .matches(/(?=.*[0-9].*[0-9]).+/g, "Ao menos dois números")
+      // .matches(
+      //   /(?=.*[a-z].*[a-z].*[a-z]).+/g,
+      //   "Ao menos três caracteres minúsculos"
+      // )
       .required("A senha não pode estar em branco"),
   });
 
@@ -81,6 +81,16 @@ const SignIn = () => {
       })
       .catch((error) => {
         setLoading(false);
+        if (error.code === "auth/wrong-password") {
+          console.log("The password is invalid!");
+          toastRef.current.show({
+            type: "error",
+            position: "bottom",
+            text1: "Usuário ou senha incorretos",
+            text2: "Verifique os dados e tente novamente :(",
+          });
+        }
+
         if (error.code === "auth/user-not-found") {
           console.log("That email address doesn't exist!");
           toastRef.current.show({
@@ -111,7 +121,7 @@ const SignIn = () => {
           });
         }
 
-        console.error(error.code, error);
+        // console.error(error.code, error);
       });
   };
 

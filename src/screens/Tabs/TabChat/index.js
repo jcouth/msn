@@ -4,12 +4,20 @@ import { useNavigation } from "@react-navigation/native";
 import Accordion from "../../../components/Accordion";
 import ChatItem from "../../../components/Accordion/ChatItem";
 import { Content } from "./styles";
-// import firebase from "firebase/app";
+import firebase from "firebase/app";
 
 const data_favourites = {
   notOffline: 2,
-  length: 2,
+  length: 3,
   users: [
+    {
+      name: "Tyrone Fuller",
+      status: "Online",
+      message: "Hello :D",
+      lastMessage: "yesterday",
+      avatar: require("../../../assets/jacquin.png"),
+      newMessages: 0,
+    },
     {
       name: "Tyrone Fuller",
       status: "Online",
@@ -131,29 +139,56 @@ const data_friends = {
   ],
 };
 
-// const db = firebase.firestore();
-// const chatRefs = db.collection("chats");
-
 const TabChat = () => {
   const navigation = useNavigation();
-  // const [messages, setMessages] = useState([]);
+  const [friends, setFriends] = useState([]);
+  const [amountOnlineFriend, setAmountOnlineFriend] = useState(0);
 
-  // useEffect(() => {
-  //   const unsubscribe = chatRefs.onSnapshot((querySnapshot) => {
-  //     const messagesFirestore = querySnapshot
-  //       .docChanges()
-  //       .filter(({ type }) => {
-  //         type === "added";
-  //       })
-  //       .map(({ doc }) => {
-  //         const message = doc.data();
-  //         return { ...message, createdAt: message.createdAt.toDate() };
-  //       })
-  //       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
-  //     setMessages(messagesFirestore);
-  //   });
-  //   return () => unsubscribe();
-  // }, []);
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("friends")
+      .doc(firebase.auth().currentUser.uid)
+      .collection("friends")
+      .get()
+      .then((snap) => {
+        const array = [];
+        let amountOnline = 0;
+        snap.docs.map((doc) => {
+          array.push(doc.data());
+        });
+        array.filter((data) => {
+          if (data.status === "Online") amountOnline++;
+        });
+        console.log(array);
+        setAmountOnlineFriend(amountOnlineFriend);
+        setFriends(array);
+        // snap.docs.map((doc, index) => {
+        //   console.log(doc.data());
+        // });
+        // const array = snap.data();
+        // let amountOnline = 0;
+        // array.filter((data) => {
+        //   if (data.status === "Online") amountOnline++;
+        // });
+        // setAmountOnlineFriend(amountOnline);
+        // setFriends(array);
+      });
+    // firebase
+    //   .firestore()
+    //   .collection("friends")
+    //   .doc(firebase.auth().currentUser.uid)
+    //   .get()
+    //   .then((snap) => {
+    //     const array = snap.data().entry;
+    //     let amountOnline = 0;
+    //     array.filter((data) => {
+    //       if (data.status === "Online") amountOnline++;
+    //     });
+    //     setAmountOnlineFriend(amountOnline);
+    //     setFriends(array);
+    //   });
+  }, []);
 
   return (
     <>
@@ -190,11 +225,17 @@ const TabChat = () => {
             <Accordion
               title="Friends"
               expanded
-              notOffline={data_friends.notOffline}
-              total={data_friends.length}
+              notOffline={amountOnlineFriend}
+              total={friends.length}
             >
-              {data_friends.users.map((user, index) => (
-                <ChatItem key={index} user={user} />
+              {friends.map((user, index) => (
+                <ChatItem
+                  key={index}
+                  user={user}
+                  onPress={() => {
+                    navigation.navigate("Chat", { user });
+                  }}
+                />
               ))}
             </Accordion>
           </View>

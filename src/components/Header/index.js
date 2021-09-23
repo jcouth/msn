@@ -94,7 +94,7 @@ const Header = ({
             <BottomInfoArea>
               {chatHeader ? (
                 <BottomInfoAreaChat>
-                  <UserMessageText>Carpe Diem!</UserMessageText>
+                  <UserMessageText>{user.message_text}</UserMessageText>
                   <BottomButtonsArea>
                     <TouchableOpacity style={{ marginRight: 10 }}>
                       <Ionicons

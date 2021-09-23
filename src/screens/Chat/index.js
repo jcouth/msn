@@ -23,39 +23,102 @@ import {
   InputArea,
 } from "./styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import firebase from "firebase/app";
 
 const Chat = ({ navigation: { goBack }, route: { params } }) => {
+  const _id = firebase.auth().currentUser.uid;
+  const { user } = params;
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: "Hello developer",
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: "React Native",
-          avatar: "https://placeimg.com/140/140/any",
-        },
-      },
-    ]);
+    const unsubscribe = firebase
+      .firestore()
+      .collection("chats")
+      .doc(_id)
+      .collection(user.uid)
+      .onSnapshot((querySnapchot) => {
+        const messagesFirebase = querySnapchot
+          .docChanges()
+          .filter(({ type }) => type === "added")
+          .map(({ doc }) => {
+            const message = doc.data();
+            return { ...message, createdAt: message.createdAt.toDate() };
+          })
+          .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+        appendMessages(messagesFirebase);
+      });
+    return () => unsubscribe();
+    // .get()
+    // .then((snap) => {
+    //   const array = [];
+    //   let amountOnline = 0;
+    //   snap.docs.map((doc) => {
+    //     array.push(doc.data());
+    //   });
+    //   array.filter((data) => {
+    //     if (data.status === "Online") amountOnline++;
+    //   });
+    //   console.log(array);
+    //   setAmountOnlineFriend(amountOnlineFriend);
+    //   setFriends(array);
+
+    // const unsubscribe = firebase
+    //   .firestore()
+    //   .collection("chats")
+    //   // .doc(userData.user.uid)
+    //   .onSnapshot((querySnapchot) => {
+    //     const messagesFirebase = querySnapchot
+    //       .docChanges()
+    //       .filter(({ type }) => type === "added")
+    //       .map(({ doc }) => {
+    //         const message = doc.data();
+    //         return { ...message, createdAt: message.createdAt.toDate() };
+    //       })
+    //       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    //     // console.log(messagesFirebase);
+    //     appendMessages(messagesFirebase);
+    //   });
+    // return () => unsubscribe();
   }, []);
 
-  const onSend = useCallback((messages = []) => {
-    setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, messages)
+  const appendMessages = useCallback(
+    (messages) => {
+      setMessages((previousMessages) =>
+        GiftedChat.append(previousMessages, messages)
+      );
+    },
+    [messages]
+  );
+
+  const onSend = async (messages = {}) => {
+    const writes = messages.map((m) =>
+      firebase
+        .firestore()
+        .collection("chats")
+        .doc(_id)
+        .collection(user.uid)
+        .add(m)
     );
-  }, []);
+    await Promise.all(writes);
+    const writes2 = messages.map((m) =>
+      firebase
+        .firestore()
+        .collection("chats")
+        .doc(user.uid)
+        .collection(_id)
+        .add(m)
+    );
+    await Promise.all(writes2);
+  };
 
   return (
     <Container>
       <StatusBar backgroundColor="#d8deef" barStyle="dark-content" />
       <Content>
-        <Header chatHeader goBack={goBack} />
+        <Header chatHeader user={user} goBack={goBack} />
         <GiftedChat
           messages={messages}
-          user={{ _id: 1 }}
+          user={{ _id: _id, ...user }}
           onSend={(messages) => onSend(messages)}
           renderAvatar={null}
         />

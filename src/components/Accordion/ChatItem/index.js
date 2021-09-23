@@ -31,21 +31,23 @@ const ChatItem = ({ user, onPress }) => {
           borderSize="2.5px"
           roundness="5px"
           colors={getColor(user.status)}
-          source={user.avatar}
+          source={
+            user.avatar ? user.avatar : require("../../../assets/jacquin.png")
+          }
         />
         <UserArea>
           <TopInfoArea>
             <UserNameText>{user.name}</UserNameText>
             <UserStatusText> ({user.status})</UserStatusText>
           </TopInfoArea>
-          <UserMessageText>{user.message}</UserMessageText>
+          <UserMessageText>{user.last_message}</UserMessageText>
         </UserArea>
         <LastMessageArea>
-          <LastMessageText changeColor={0 < user.newMessages ? 1 : 0}>
-            {user.lastMessage}
+          <LastMessageText changeColor={0 < user.last_message_amount ? 1 : 0}>
+            {user.last_message_date}
           </LastMessageText>
-          {0 < user.newMessages && (
-            <LastNumberMessages>{user.newMessages}</LastNumberMessages>
+          {0 < user.last_message_amount && (
+            <LastNumberMessages>{user.last_message_amount}</LastNumberMessages>
           )}
         </LastMessageArea>
       </InfoArea>
