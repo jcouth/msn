@@ -41,6 +41,26 @@ const Header = ({
   const [expanded, setExpanded] = useState(false);
   const [top, setTop] = useState(0);
 
+  const getColor = (status) => {
+    let color = ["#fff", "#D8D8D8", "#808080"]; // Offline
+    if (status === "Online") color = ["#fff", "#C3EFCB", "#39CA54"];
+    else if (status === "Busy") color = ["#fff", "#FFB2B2", "#FF1919"];
+    else if (status === "Away") color = ["#fff", "#FFD8B2", "#FF8000"];
+    return color;
+  };
+
+  const handleSignOut = () => {
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(firebase.auth().currentUser.uid)
+      .update({ last_status: user.status, status: "Offline" });
+    firebase.auth().signOut();
+    navigation.reset({
+      routes: [{ name: "SignIn" }],
+    });
+  };
+
   return (
     <>
       <HeaderArea
@@ -55,10 +75,15 @@ const Header = ({
             }}
           >
             <ProfilePicture
-              colors={["#fff", "#C3EFCB", "#39CA54"]}
-              source={{
-                uri: user.avatar,
-              }}
+              colors={getColor(user.status)}
+              source={
+                user.avatar
+                  ? {
+                      uri: user.avatar,
+                    }
+                  : require("../../assets/msn_logo.png")
+              }
+              imageFill={user.avatar ? true : false}
             />
           </TouchableWithoutFeedback>
           <InfoArea>
@@ -190,14 +215,7 @@ const Header = ({
                   <HeaderItemText>Create Group</HeaderItemText>
                 </HeaderItem>
               </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  firebase.auth().signOut();
-                  navigation.reset({
-                    routes: [{ name: "SignIn" }],
-                  });
-                }}
-              >
+              <TouchableOpacity onPress={handleSignOut}>
                 <HeaderItem>
                   <HeaderItemIcon>
                     <FontAwesome name="sign-out" size={24} color="#4e609b" />
