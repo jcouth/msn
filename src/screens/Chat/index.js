@@ -128,6 +128,7 @@ const Chat = ({ navigation: { goBack }, route: { params } }) => {
           listViewProps={{
             style: {
               backgroundColor: "#f0f0f0",
+              paddingHorizontal: 10,
             },
           }}
           messages={messages}

@@ -107,13 +107,11 @@ const TabChat = () => {
       .then((snap) => {
         if (isMounted) {
           const array = [];
-          let amountOnline = 0;
           snap.docs.map((doc) => {
             const _info = doc
               .data()
               .user.get()
               .then((res) => {
-                if (res.data().status !== "Offline") amountOnline++;
                 const aux = { ...doc.data(), ...res.data(), uid: res.id };
                 delete aux.user;
 
@@ -121,7 +119,6 @@ const TabChat = () => {
               });
             array.push(_info);
           });
-          setAmountOnlineFriend(amountOnline);
           resolvePromises(array);
         }
       });
@@ -137,6 +134,11 @@ const TabChat = () => {
         return await user;
       })
     );
+    let amountOnline = 0;
+    resolved.forEach((user) => {
+      if (user.status !== "Offline") amountOnline++;
+    });
+    setAmountOnlineFriend(amountOnline);
     setFriends(resolved);
   };
 
