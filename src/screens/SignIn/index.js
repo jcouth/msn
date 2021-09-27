@@ -84,8 +84,8 @@ const SignIn = () => {
           toastRef.current.show({
             type: "error",
             position: "bottom",
-            text1: "E-mail não encontrado",
-            text2: "Parece que este usuário não existe :(",
+            text1: "Usuário ou senha incorretos",
+            text2: "Verifique os dados e tente novamente :(",
           });
         }
 
@@ -94,8 +94,8 @@ const SignIn = () => {
           toastRef.current.show({
             type: "error",
             position: "bottom",
-            text1: "E-mail inválido",
-            text2: "Este e-mail está em um formato inválido :(",
+            text1: "Usuário ou senha incorretos",
+            text2: "Verifique os dados e tente novamente :(",
           });
         }
 

@@ -230,6 +230,7 @@ const SignUp = () => {
                       placeholder="Password"
                       onBlur={onBlur}
                       onChangeText={onChange}
+                      eyeColor={errors.password ? "#ff0000" : "#192758"}
                       value={value}
                       icon={
                         <Feather
@@ -264,6 +265,7 @@ const SignUp = () => {
                       placeholder="Confirm Password"
                       onBlur={onBlur}
                       onChangeText={onChange}
+                      eyeColor={errors.confirmPassword ? "#ff0000" : "#192758"}
                       value={value}
                       icon={
                         <Feather
