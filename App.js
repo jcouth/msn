@@ -4,8 +4,6 @@ import { LogBox } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import MainStack from "./src/stacks/MainStack";
 
-import UserContextProvider from "./src/contexts/UserContext";
-
 import firebase from "firebase";
 require("firebase/auth");
 require("firebase/firestore");
@@ -38,10 +36,8 @@ LogBox.ignoreLogs(["timer"]);
 
 export default function App() {
   return (
-    <UserContextProvider>
-      <NavigationContainer>
-        <MainStack />
-      </NavigationContainer>
-    </UserContextProvider>
+    <NavigationContainer>
+      <MainStack />
+    </NavigationContainer>
   );
 }
