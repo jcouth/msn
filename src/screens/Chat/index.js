@@ -1,27 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { StatusBar } from "react-native";
 import {
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
-import {
   GiftedChat,
   InputToolbar,
-  LeftAction,
-  ChatInput,
-  SendButton,
+  Bubble,
+  Send,
 } from "react-native-gifted-chat";
 import Header from "../../components/Header";
-import Input from "../../components/Input";
-import ChatMessage from "../../components/ChatMessage";
-import {
-  Container,
-  Content,
-  ChatArea,
-  BottomArea,
-  IconArea,
-  InputArea,
-} from "./styles";
+import { Container, Content } from "./styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import firebase from "firebase/app";
 
@@ -36,8 +22,8 @@ const Chat = ({ navigation: { goBack }, route: { params } }) => {
       .collection("chats")
       .doc(_id)
       .collection(user.uid)
-      .onSnapshot((querySnapchot) => {
-        const messagesFirebase = querySnapchot
+      .onSnapshot((querySnapshot) => {
+        const messagesFirebase = querySnapshot
           .docChanges()
           .filter(({ type }) => type === "added")
           .map(({ doc }) => {
@@ -45,7 +31,7 @@ const Chat = ({ navigation: { goBack }, route: { params } }) => {
             return { ...message, createdAt: message.createdAt.toDate() };
           })
           .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
-        appendMessages(messagesFirebase);
+        appendMessages(messagesFirebase.slice(messages.length));
       });
     return () => unsubscribe();
   }, []);
@@ -81,7 +67,7 @@ const Chat = ({ navigation: { goBack }, route: { params } }) => {
     await Promise.all(whos_receiving);
   };
 
-  const handleInputToolbar = (props) => {
+  const renderInputToolbar = (props) => {
     return (
       <InputToolbar
         {...props}
@@ -92,82 +78,68 @@ const Chat = ({ navigation: { goBack }, route: { params } }) => {
     );
   };
 
+  const renderBubble = (props) => {
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          right: {
+            backgroundColor: "#4e609b",
+            borderRadius: 10,
+          },
+          left: {
+            backgroundColor: "#ffffff",
+            borderRadius: 10,
+          },
+        }}
+        textStyle={{
+          right: {
+            color: "#ffffff",
+            fontSize: 16,
+          },
+          left: {
+            color: "#4e609b",
+            fontSize: 16,
+          },
+        }}
+      />
+    );
+  };
+
+  const renderSend = (props) => (
+    <Send
+      {...props}
+      containerStyle={{
+        justifyContent: "center",
+        alignItems: "center",
+        width: "10%",
+      }}
+    >
+      <MaterialCommunityIcons name="send" size={24} color="#4e609b" />
+    </Send>
+  );
+
   return (
     <Container>
       <StatusBar backgroundColor="#d8deef" barStyle="dark-content" />
       <Content>
         <Header chatHeader user={user} goBack={goBack} />
         <GiftedChat
+          listViewProps={{
+            style: {
+              backgroundColor: "#f0f0f0",
+            },
+          }}
           messages={messages}
           user={{ _id: _id, ...user }}
           onSend={(messages) => onSend(messages)}
           renderAvatar={null}
-          renderInputToolbar={handleInputToolbar}
+          renderInputToolbar={renderInputToolbar}
+          renderBubble={renderBubble}
+          renderSend={renderSend}
+          alwaysShowSend
+          scrollToBottom
         />
-        {/* <ChatArea>
-          <ChatMessage
-            message="So, when yous gonna throw a concert in London?"
-            time="12:04"
-          />
-          <ChatMessage
-            message="We're still considering..."
-            time="12:06"
-            received
-          />
-          <ChatMessage message="I'll let you know tho" time="12:06" received />
-          <ChatMessage message="Okay" time="12:08" />
-        </ChatArea>
-         */}
-        {/* <BottomArea>
-          <IconArea>
-            <TouchableWithoutFeedback>
-              <MaterialCommunityIcons
-                name="dots-vertical"
-                size={30}
-                color="#4e609b"
-              />
-            </TouchableWithoutFeedback>
-          </IconArea>
-          <InputArea>
-            <Input
-              placeholder="Type a message"
-              placeholderTextColor="#929bb3"
-              color="#4e609b"
-              backgroundColor="#ffffff"
-              borderSize="1px"
-              borderColor="#929bb3"
-              borderRadius="50px"
-              padding="5px 10px"
-              rightIcon={
-                <TouchableOpacity>
-                  <MaterialCommunityIcons
-                    name="sticker-outline"
-                    size={20}
-                    color="#4e609b"
-                  />
-                </TouchableOpacity>
-              }
-            />
-          </InputArea>
-          <IconArea>
-            <TouchableWithoutFeedback>
-              <MaterialCommunityIcons
-                name="camera-outline"
-                size={24}
-                color="#4e609b"
-              />
-            </TouchableWithoutFeedback>
-          </IconArea>
-          <IconArea>
-            <TouchableWithoutFeedback>
-              <MaterialCommunityIcons
-                name="microphone-outline"
-                size={24}
-                color="#4e609b"
-              />
-            </TouchableWithoutFeedback>
-          </IconArea>
-        </BottomArea> */}
       </Content>
     </Container>
   );
