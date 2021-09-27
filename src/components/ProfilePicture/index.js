@@ -8,8 +8,12 @@ const ProfilePicture = ({
   height,
   borderSize,
   roundness,
+  imageFill,
 }) => {
   const linearBg = colors ? colors : ["#fff", "#fff", "#39CA54"];
+
+  let style = { resizeMode: "contain" };
+  if (imageFill) style = { ...style, width: "100%", height: "100%" };
 
   return (
     <Area
@@ -20,7 +24,12 @@ const ProfilePicture = ({
       roundness={roundness}
     >
       <PictureStatus roundness={roundness}>
-        <Picture style={{ resizeMode: "contain" }} source={source} />
+        <Picture
+          // style={{ resizeMode: "contain" }}
+          style={style}
+          // imageFill={imageFill}
+          source={source}
+        />
       </PictureStatus>
     </Area>
   );
