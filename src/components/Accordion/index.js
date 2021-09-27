@@ -15,6 +15,7 @@ const Accordion = ({
   expanded = false,
   notOffline = 0,
   total = 0,
+  groupType,
 }) => {
   const [isExpanded, setIsExpanded] = useState(expanded);
 
@@ -35,9 +36,10 @@ const Accordion = ({
             />
             {star && <Ionicons name="star" size={16} color="#FAD02C" />}
             <TitleText>
-              {title} ({notOffline}/{total})
+              {title}
+              {!groupType && ` (${notOffline}/${total})`}
             </TitleText>
-            {green && <GreenCircle />}
+            {!groupType && green && <GreenCircle />}
           </TitleArea>
         </CollapseHeader>
         <CollapseBody>{children}</CollapseBody>

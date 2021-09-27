@@ -31,9 +31,14 @@ const ChatItem = ({ user, onPress }) => {
           borderSize="2.5px"
           roundness="5px"
           colors={getColor(user.status)}
-          source={{
-            uri: user.avatar,
-          }}
+          source={
+            user.avatar
+              ? {
+                  uri: user.avatar,
+                }
+              : require("../../../assets/msn_logo.png")
+          }
+          imageFill={user.avatar ? true : false}
         />
         <UserArea>
           <TopInfoArea>

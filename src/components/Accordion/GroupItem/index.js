@@ -28,21 +28,29 @@ const GroupItem = ({ user }) => {
           height="50px"
           borderSize="2.5px"
           roundness="5px"
+          padding="0px"
           colors={getColor(user.status)}
-          source={user.avatar}
+          source={
+            user.avatar
+              ? {
+                  uri: user.avatar,
+                }
+              : require("../../../assets/jacquin.png")
+          }
+          imageFill={user.avatar ? true : false}
         />
         <UserArea>
           <TopInfoArea>
             <UserNameText>{user.name}</UserNameText>
           </TopInfoArea>
-          <UserMessageText>{user.message}</UserMessageText>
+          <UserMessageText>{user.last_message}</UserMessageText>
         </UserArea>
         <LastMessageArea>
-          <LastMessageText changeColor={0 < user.newMessages ? 1 : 0}>
-            {user.lastMessage}
+          <LastMessageText changeColor={0 < user.last_message_amount ? 1 : 0}>
+            {user.last_message_date}
           </LastMessageText>
-          {0 < user.newMessages && (
-            <LastNumberMessages>{user.newMessages}</LastNumberMessages>
+          {0 < user.last_message_amount && (
+            <LastNumberMessages>{user.last_message_amount}</LastNumberMessages>
           )}
         </LastMessageArea>
       </InfoArea>
