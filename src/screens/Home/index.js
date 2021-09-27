@@ -6,18 +6,31 @@ import { Container, Content } from "./styles";
 import firebase from "firebase/app";
 
 const Home = () => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    avatar: "",
+    name: "",
+    status: "",
+    uid: "",
+  });
 
   useEffect(() => {
     let mounted = true;
     if (mounted) {
+      let _user = {};
       firebase
         .firestore()
         .collection("users")
         .doc(firebase.auth().currentUser.uid)
         .get()
         .then((snap) => {
-          setUser(snap.data());
+          _user = snap.data();
+          _user = { ..._user, status: _user.last_status };
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(firebase.auth().currentUser.uid)
+            .update({ status: _user.status });
+          setUser(_user);
         });
     }
     return () => {
